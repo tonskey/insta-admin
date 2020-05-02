@@ -1,25 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="shortcut icon"
-      href="{{ url_for('static', filename='favicon.ico') }}"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='main.css') }}"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Poppins:400,700&amp;display=swap"
-      rel="stylesheet"
-    />
-    <title>Insta Admin</title>
-  </head>
-  <body>
-    <div class="stub">
-      <h2>Coming soon</h2>
-    </div>
-  </body>
+
+<head>
+    <title>Some name</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/open-iconic-bootstrap.min.css') }}" />
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.css') }}" />
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.carousel.min.css') }}" />
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/owl.theme.default.min.css') }}" />
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/magnific-popup.css') }}" />
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/aos.css') }}" />
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ionicons.min.css') }}" />
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/flaticon.css') }}" />
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/icomoon.css') }}" />
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo.png') }}" />
+
+</head>
+
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Some name</a>
+            <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="oi oi-menu"></span> Menu
+	      </button>
+
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav nav ml-auto">
+                    <li class="nav-item"><a href="#home-section" class="nav-link"><span>Home</span></a></li>
+                    <li class="nav-item"><a href="#services-section" class="nav-link"><span>Criteria</span></a></li>
+                    <li class="nav-item"><a href="#properties-section" class="nav-link"><span>Listing</span></a></li>
+                    <li class="nav-item"><a href="#about-section" class="nav-link"><span>Winner</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-wrap js-fullheight" data-section="home" data-stellar-background-ratio="0.5">
+        <!--  style="background-image: url('images/IMG_4396-3.jpg');"  -->
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start" data-scrollax-parent="true">
+                <div class="col-md-2 mb-hide"></div>
+
+                <div class="col-md-8 ftco-animate" data-scrollax=" properties: { translateY: '70%' }" style="text-align: center">
+                    <h1 class="mb-5" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Acc that will give away prizes</h1>
+                    <form action="#" class="search-location">
+                        <div class="row">
+                            <div class="col-lg-8 align-items-end">
+
+                                <div class="form-group">
+                                    <div class="form-field">
+                                        <input type="text" class="form-control" placeholder="Instagram account">
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-4">
+                                <!--<button><span class="ion-ios-search"></span></button>-->
+                                <button type='button' class="btn btn-white" id="get_followers">Get followers</button>
+
+                            </div>
+                        </div>
+                        <div id="check_account">Got it!
+                            <div id="followers_number">Number of followers : </div>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        <section>
+            <div class="wave"></div>
+
+
+
+
+            <section class="ftco-intro" id="about-section">
+                <div class="overlay"></div>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-9 text-center">
+                            <h2>Choose Your Winner</h2>
+
+                            <p class="mb-0"><a href="javascript:void(0);" class="btn btn-white px-4" id="shuffle" style="margin-top: 30px">Shuffle</a></p>
+
+                            <div class="slottt-machine-recipe justify-content-center">
+                                <div class="slottt-machine-recipe__mask" id="wordbox">
+                                    <div class="slottt-machine-recipe__items_container recipe_if">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+
+
+            <footer class="ftco-footer ftco-section" style="background-color: #fa915c">
+                <div class="container-fluid px-md-5">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+
+                            <p>
+                                Copyright &copy;
+                                <script>
+                                    document.write(new Date().getFullYear());
+
+                                </script> | All rights reserved
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </section>
+    </section>
+
+
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-migrate-3.0.1.min.js') }}"></script>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.waypoints.min.js') }}"></script>
+    
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.stellar.min.js') }}"></script>
+    
+    <script type="text/javascript" src="{{ url_for('static', filename='js/aos.js') }}"></script>
+    
+    <script type="text/javascript" src="{{ url_for('static', filename='js/scrollax.min.js') }}"></script>
+    
+    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+
 </html>
