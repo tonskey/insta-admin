@@ -37,10 +37,11 @@
 
  function buildSlotItem(text, image) {
      return $('<div>').addClass('slottt-machine-recipe__item row') //
-         .text(text)/*.prepend($('<img>', {
-             id: 'avatars',
-             src: image
-         }))*/
+         .text(text)
+         /*.prepend($('<img>', {
+                      id: 'avatars',
+                      src: image
+                  }))*/
  }
 
  function buildSlotContents($container, users) {
@@ -71,7 +72,7 @@
  // so the animation can slide upward infinitely without adding
  // inifinte div elements inside the container.
  function rotateContents($container, n) {
-      
+
      setTimeout(function () {
          popPushNItems($container, n);
          $container.css({
@@ -81,14 +82,14 @@
  }
 
  function randomSlotttIndex(max) {
-    
+
      var randIndex = (Math.random() * max | 0);
      return (randIndex > 10) ? randIndex : randomSlotttIndex(max);
  }
 
 
  function animate() {
-     
+
      var wordIndex = randomSlotttIndex(users.length);
      $wordbox.animate({
          top: -wordIndex * 150
@@ -112,69 +113,132 @@
  }
 
 
+ function getFollowersPress() {
+     /*
+     url = "";
+     if ($('.form-control').val().search("instagram.com") >= 0) {
+         url = $('.form-control').val();
+     } else {
+         url = "https://www.instagram.com/" + $('.form-control').val();
+     }
+     $('.form-control').val("");
+     */
+     url = "https://www.instagram.com/" + $('.form-control').val();
+     $.ajax(url, {
+         statusCode: {
+             405: function () {
+
+             },
+             404: function () {
+                 alert("No such account!");
+                 //console.log('Oh no!');
+             },
+             200: function () {
+                 //getFollowersNumber(url);
+                 $("#followers_number").text("Number of followers : some");
+                 $("#check_account").fadeTo(0, 1);
+                 //console.log('Yay!');
+             }
+         }
+     });
+ }
+
+/*)
+ function getFollowersNumber(link) {
+     $.ajax({
+         url: link,
+         dataType: 'text',
+         success: function (data) {
+             console.log(data);
+             var elements = $("<span>").html(data)[0].getElementsByClassName("g47SY");
+             console.log(elements.firstChild.nodeValue);
+             for (var i = 0; i < elements.length; i++) {
+                 var theText = elements[i].firstChild.nodeValue;
+                 console.log(theText);
+                 // Do something here
+             }
+         }
+     });
+
+ }*/
+
  $(document).ready(function () {
      var url = "";
+     
+     $("input").blur(function () {
+         console.log("ASD");
+         $("input").removeClass("acc_input_green");
+         $("input").removeClass("acc_input_red");
+         $("#no_acc_msg").fadeTo(0, 0);
+         $("input").val('');
+     });
+
+     $(".form-control").keydown(function (e) {
+         if (e.which === 13) {
+             getFollowersPress();
+         }
+     });
+
+     $('#get_followers').click(function () {
+         getFollowersPress();
+     });
+
      $('.form-control').keyup(function () {
-         url = "https://www.instagram.com/" + $('.form-control').val();
+
+         url = "";
+         if ($('.form-control').val().search("instagram.com") >= 0) {
+             url = $('.form-control').val();
+         } else {
+             url = "https://www.instagram.com/" + $('.form-control').val();
+         }
+
+
 
          $.ajax(url, {
              statusCode: {
                  405: function () {
-
+                     console.log("asdasd");
                  },
                  404: function () {
-                     //alert("No such account!");
-                     // $('.form-control').style.color = '#fff';
-                     console.log('Oh no!');
+
+                     console.log("NO");
+                     $("input").removeClass("acc_input_green");
+                     $("input").addClass("acc_input_red");
+                     //$("#no_acc_msg").fadeIn(100);
+                     $("#no_acc_msg").fadeTo(0, 1);
+                     
                  },
                  200: function () {
-                     //$(".form-control").css("background", "green");
-                     console.log('Yay!');
+                     console.log("YAY");
+                     $("input").removeClass("acc_input_red");
+                     $("input").addClass("acc_input_green");
+                     $("#no_acc_msg").fadeTo(0, 0);
                  }
              }
          });
-         //$.data(this, 'edited', this.value != "");
      });
+
+
 
      $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
      buildSlotContents($wordbox, users);
      interval = setInterval(animate, 2000);
-     
+
      //animate.clearQueue().stop();
      //animate.stop(true, true );
 
      $("#shuffle").click(function () {
          clearInterval(interval);
-          setTimeout(function() {
-              animate();
-              // Do something after 5 seconds
+         setTimeout(function () {
+             animate();
+             // Do something after 5 seconds
          }, 100);
          //buildSlotContents($wordbox, users);
      });
 
 
-     $('#get_followers').click(function () {
-         url = "https://www.instagram.com/" + $('.form-control').val();
 
-         $.ajax(url, {
-             statusCode: {
-                 405: function () {
 
-                 },
-                 404: function () {
-                     alert("No such account!");
-                     // $('.form-control').style.color = '#fff';
-                     console.log('Oh no!');
-                 },
-                 200: function () {
-                     $("#followers_number").text("Number of followers : some");
-                     $("#check_account").fadeIn(100);
-                     //$(".form-control").css("background", "green");
-                     console.log('Yay!');
-                 }
-             }
-         });
-     });
  });
 
 

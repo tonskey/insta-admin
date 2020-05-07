@@ -35,7 +35,6 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo.png') }}" />
 
 </head>
-
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light site-navbar-target" id="ftco-navbar">
@@ -65,13 +64,13 @@
 
                 <div class="col-md-8 ftco-animate" data-scrollax=" properties: { translateY: '70%' }" style="text-align: center">
                     <h1 class="mb-5" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Acc that will give away prizes</h1>
-                    <form action="#" class="search-location">
-                        <div class="row">
+                    <form action="#" class="search-location h-100">
+                        <div class="row flex-fill">
                             <div class="col-lg-8 align-items-end">
 
                                 <div class="form-group">
                                     <div class="form-field">
-                                        <input type="text" class="form-control" placeholder="Instagram account">
+                                        <input type="text" class="form-control" spellcheck="false" placeholder="Instagram account">
 
 
                                     </div>
@@ -80,13 +79,14 @@
                             </div>
                             <div class="col-lg-4">
                                 <!--<button><span class="ion-ios-search"></span></button>-->
-                                <button type='button' class="btn btn-white" id="get_followers">Get followers</button>
-
+                                <button type='button' class="btn btn-white"  id="get_followers">Get followers</button>
+                               
                             </div>
+                            <div id="no_acc_msg" class="col-md-5">* No matching results</div>
+                            <div id="check_account" class="col-md-12 ">Got it!<div id="followers_number">Number of followers : </div></div>
                         </div>
-                        <div id="check_account">Got it!
-                            <div id="followers_number">Number of followers : </div>
-                        </div>
+                        
+                        
 
                     </form>
                 </div>
@@ -146,22 +146,22 @@
     <!-- loader -->
     <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
-    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
-    
-    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-migrate-3.0.1.min.js') }}"></script>
 
-    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-    
-    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.waypoints.min.js') }}"></script>
-    
-    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.stellar.min.js') }}"></script>
-    
-    <script type="text/javascript" src="{{ url_for('static', filename='js/aos.js') }}"></script>
-    
-    <script type="text/javascript" src="{{ url_for('static', filename='js/scrollax.min.js') }}"></script>
-    
-    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/scrollax.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="js/google-map.js"></script>
+
+    <script src="js/main.js"></script>
 
 </body>
-
-</html>
