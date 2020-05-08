@@ -165,13 +165,14 @@
  $(document).ready(function () {
      var url = "";
      
+     /*
      $("input").blur(function () {
          console.log("ASD");
          $("input").removeClass("acc_input_green");
          $("input").removeClass("acc_input_red");
          $("#no_acc_msg").fadeTo(0, 0);
          $("input").val('');
-     });
+     });*/
 
      $(".form-control").keydown(function (e) {
          if (e.which === 13) {
