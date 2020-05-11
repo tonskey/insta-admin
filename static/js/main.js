@@ -177,6 +177,7 @@
      $(".form-control").keypress(function (e) {
          if (e.which === 13) {
              e.preventDefault();
+             $(".form-control").submit(function() { return false; });
              getFollowersPress();
          }
      });
