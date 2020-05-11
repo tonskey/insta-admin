@@ -174,8 +174,9 @@
          $("input").val('');
      });*/
 
-     $(".form-control").keydown(function (e) {
+     $(".form-control").keypress(function (e) {
          if (e.which === 13) {
+             e.preventDefault();
              getFollowersPress();
          }
      });
