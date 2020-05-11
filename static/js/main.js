@@ -203,16 +203,16 @@
                  404: function () {
 
                      console.log("NO");
-                     $("input").removeClass("acc_input_green");
-                     $("input").addClass("acc_input_red");
+                     $(".form-control").removeClass("acc_input_green");
+                     $(".form-control").addClass("acc_input_red");
                      //$("#no_acc_msg").fadeIn(100);
                      $("#no_acc_msg").fadeTo(0, 1);
                      
                  },
                  200: function () {
                      console.log("YAY");
-                     $("input").removeClass("acc_input_red");
-                     $("input").addClass("acc_input_green");
+                     $(".form-control").removeClass("acc_input_red");
+                     $(".form-control").addClass("acc_input_green");
                      $("#no_acc_msg").fadeTo(0, 0);
                  }
              }

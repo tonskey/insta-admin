@@ -35,11 +35,12 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo.png') }}" />
 
 </head>
+
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light site-navbar-target" id="ftco-navbar">
         <div class="container">
-            <a class="navbar-brand" href="index.html">Some name</a>
+            <a class="navbar-brand" href="index.html">InstaAdmin</a>
             <button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
@@ -47,8 +48,9 @@
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav nav ml-auto">
                     <li class="nav-item"><a href="#home-section" class="nav-link"><span>Home</span></a></li>
+                    <!--
                     <li class="nav-item"><a href="#services-section" class="nav-link"><span>Criteria</span></a></li>
-                    <li class="nav-item"><a href="#properties-section" class="nav-link"><span>Listing</span></a></li>
+                    <li class="nav-item"><a href="#properties-section" class="nav-link"><span>Listing</span></a></li>-->
                     <li class="nav-item"><a href="#about-section" class="nav-link"><span>Winner</span></a></li>
                 </ul>
             </div>
@@ -60,13 +62,13 @@
         <div class="overlay"></div>
         <div class="container">
             <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start" data-scrollax-parent="true">
-                <div class="col-md-2 mb-hide"></div>
+                <div class="col-md-1 mb-hide"></div>
 
-                <div class="col-md-8 ftco-animate" data-scrollax=" properties: { translateY: '70%' }" style="text-align: center">
-                    <h1 class="mb-5" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Acc that will give away prizes</h1>
+                <div class="col-md-10 ftco-animate" data-scrollax=" properties: { translateY: '70%' }" style="text-align: center">
+                    <h1 class="mb-5" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Accounts that will give away prizes:</h1>
                     <form action="#" class="search-location h-100">
                         <div class="row flex-fill">
-                            <div class="col-lg-8 align-items-end">
+                            <div class="col-lg-9 align-items-end">
 
                                 <div class="form-group">
                                     <div class="form-field">
@@ -77,16 +79,18 @@
                                 </div>
 
                             </div>
-                            <div class="col-lg-4">
+                            <div class="col-lg-3">
                                 <!--<button><span class="ion-ios-search"></span></button>-->
-                                <button type='button' class="btn btn-white"  id="get_followers">Get followers</button>
-                               
+                                <button type='button' class="btn btn-white" id="get_followers">Get followers</button>
+
                             </div>
                             <div id="no_acc_msg" class="col-md-5">* No matching results</div>
-                            <div id="check_account" class="col-md-12 ">Got it!<div id="followers_number">Number of followers : </div></div>
+                            <div id="check_account" class="col-md-12 ">Got it!
+                                <div id="followers_number">Number of followers : </div>
+                            </div>
                         </div>
-                        
-                        
+
+
 
                     </form>
                 </div>
@@ -105,8 +109,8 @@
                     <div class="row justify-content-center">
                         <div class="col-md-9 text-center">
                             <h2>Choose Your Winner</h2>
+                            <button type='button' class="btn btn-white" id="shuffle" style="margin-top: 30px">Get followers</button>
 
-                            <p class="mb-0"><a href="javascript:void(0);" class="btn btn-white px-4" id="shuffle" style="margin-top: 30px">Shuffle</a></p>
 
                             <div class="slottt-machine-recipe justify-content-center">
                                 <div class="slottt-machine-recipe__mask" id="wordbox">
@@ -142,12 +146,11 @@
         </section>
     </section>
 
-
     <!-- loader -->
     <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
 
-      <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
 
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-migrate-3.0.1.min.js') }}"></script>
 
