@@ -175,9 +175,11 @@
      });*/
      
      $("#logo").click(function(){
-         $('body,html').animate({
-            scrollTop: 0
-        }, 400);
+        $('html, body').animate({
+                 scrollTop: $($.attr(this, 'href')).offset().top - 70
+             }, 500, function () {
+                 // window.location.hash = href;
+             });
      })
      
 
