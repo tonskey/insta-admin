@@ -173,6 +173,13 @@
          $("#no_acc_msg").fadeTo(0, 0);
          $("input").val('');
      });*/
+     
+     $("#logo").click(function(){
+         $('body,html').animate({
+            scrollTop: 0
+        }, 400);
+     })
+     
 
      $(".form-control").keypress(function (e) {
          if (e.which === 13) {
