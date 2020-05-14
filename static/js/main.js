@@ -130,41 +130,47 @@
 
              },
              404: function () {
-                 alert("No such account!");
+                 //alert("No such account!");
+                 $("#got_it").text("Error!");
+                 $("#followers_number").text("No such account");
+                 $("#check_account").fadeTo(0, 1);
                  //console.log('Oh no!');
              },
              200: function () {
                  //getFollowersNumber(url);
-                 $("#followers_number").text("Number of followers : some");
-                 $("#check_account").fadeTo(0, 1);
+                 if ($('.form-control').val() != "") {
+                     $("#got_it").text("Got it!");
+                     $("#followers_number").text("Number of followers : some");
+                     $("#check_account").fadeTo(0, 1);
+                 }
                  //console.log('Yay!');
              }
          }
      });
  }
 
-/*)
- function getFollowersNumber(link) {
-     $.ajax({
-         url: link,
-         dataType: 'text',
-         success: function (data) {
-             console.log(data);
-             var elements = $("<span>").html(data)[0].getElementsByClassName("g47SY");
-             console.log(elements.firstChild.nodeValue);
-             for (var i = 0; i < elements.length; i++) {
-                 var theText = elements[i].firstChild.nodeValue;
-                 console.log(theText);
-                 // Do something here
-             }
-         }
-     });
+ /*)
+  function getFollowersNumber(link) {
+      $.ajax({
+          url: link,
+          dataType: 'text',
+          success: function (data) {
+              console.log(data);
+              var elements = $("<span>").html(data)[0].getElementsByClassName("g47SY");
+              console.log(elements.firstChild.nodeValue);
+              for (var i = 0; i < elements.length; i++) {
+                  var theText = elements[i].firstChild.nodeValue;
+                  console.log(theText);
+                  // Do something here
+              }
+          }
+      });
 
- }*/
+  }*/
 
  $(document).ready(function () {
      var url = "";
-     
+
      /*
      $("input").blur(function () {
          console.log("ASD");
@@ -173,20 +179,22 @@
          $("#no_acc_msg").fadeTo(0, 0);
          $("input").val('');
      });*/
-     
-     $("#logo").click(function(){
-        $('html, body').animate({
-                 scrollTop: $($.attr(this, 'href')).offset().top - 70
-             }, 500, function () {
-                 // window.location.hash = href;
-             });
+
+     $("#logo").click(function () {
+         $('html, body').animate({
+             scrollTop: $($.attr(this, 'href')).offset().top - 70
+         }, 500, function () {
+             // window.location.hash = href;
+         });
      })
-     
+
 
      $(".form-control").keypress(function (e) {
          if (e.which === 13) {
              e.preventDefault();
-             $(".form-control").submit(function() { return false; });
+             $(".form-control").submit(function () {
+                 return false;
+             });
              getFollowersPress();
          }
      });
@@ -218,7 +226,7 @@
                      $(".form-control").addClass("acc_input_red");
                      //$("#no_acc_msg").fadeIn(100);
                      $("#no_acc_msg").fadeTo(0, 1);
-                     
+
                  },
                  200: function () {
                      console.log("YAY");

@@ -219,6 +219,12 @@ section .wave:after {
     color: white;
 }
 
+
+.btn {
+  outline: none;
+  border: none;
+}
+
 a {
     color: white;
 }
