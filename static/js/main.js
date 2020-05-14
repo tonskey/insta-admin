@@ -123,6 +123,20 @@
      }
      $('.form-control').val("");
      */
+
+/*
+     $.ajax({
+         url: "https://instaadminback.herokuapp.com/api/followers/serhii_stets",
+         type: 'GET',
+         dataType: 'json', // added data type
+         success: function (res) {
+             console.log("asd");
+             console.log(res);
+             alert(res);
+         }
+     });*/
+
+
      url = "https://www.instagram.com/" + $('.form-control').val();
      $.ajax(url, {
          statusCode: {
@@ -170,6 +184,7 @@
 
  $(document).ready(function () {
      var url = "";
+
 
      /*
      $("input").blur(function () {
@@ -251,15 +266,9 @@
 
              var h = $(window).scrollTop();
              if (h < 200) {
-                 $(".form-control").keypress(function (e) {
-                     if (e.which === 13) {
-                         e.preventDefault();
-                         $(".form-control").submit(function () {
-                             return false;
-                         });
-                         getFollowersPress();
-                     }
-                 });
+
+                 getFollowersPress();
+
 
              } else if (h > 250) {
                  clearInterval(interval);
