@@ -189,15 +189,6 @@
      })
 
 
-     $(".form-control").keypress(function (e) {
-         if (e.which === 13) {
-             e.preventDefault();
-             $(".form-control").submit(function () {
-                 return false;
-             });
-             getFollowersPress();
-         }
-     });
 
      $('#get_followers').click(function () {
          getFollowersPress();
@@ -244,20 +235,41 @@
      buildSlotContents($wordbox, users);
      interval = setInterval(animate, 2000);
 
-     //animate.clearQueue().stop();
-     //animate.stop(true, true );
 
      $("#shuffle").click(function () {
+         console.log(interval);
          clearInterval(interval);
          setTimeout(function () {
              animate();
-             // Do something after 5 seconds
          }, 100);
-         //buildSlotContents($wordbox, users);
      });
 
 
+     $(document).on('keypress', function (e) {
+         if (e.which == 13) {
+             e.preventDefault();
 
+             var h = $(window).scrollTop();
+             if (h < 200) {
+                 $(".form-control").keypress(function (e) {
+                     if (e.which === 13) {
+                         e.preventDefault();
+                         $(".form-control").submit(function () {
+                             return false;
+                         });
+                         getFollowersPress();
+                     }
+                 });
+
+             } else if (h > 250) {
+                 clearInterval(interval);
+                 setTimeout(function () {
+                     animate();
+                     // Do something after 5 seconds
+                 }, 100);
+             }
+         }
+     });
 
  });
 
@@ -268,7 +280,6 @@
  (function ($) {
 
      "use strict";
-
 
 
      $(window).stellar({
