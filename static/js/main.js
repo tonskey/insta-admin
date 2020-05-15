@@ -38,7 +38,6 @@
 
 
  function buildSlotContents($container, users) {
-
      $items = users.map(buildSlotItem);
 
      $container.append($items);
@@ -75,7 +74,7 @@
 
 
  function animate() {
-
+     
      var wordIndex = randomSlotttIndex(users.length);
      $wordbox.animate({
          top: -wordIndex * 150
@@ -117,7 +116,14 @@
                      api_url = 'https://instaadminback.herokuapp.com/api/followers/' + $('.form-control').val();
 
                      $.getJSON(api_url, function (data) {
+                         clearInterval(interval);
+                         $('.slottt-machine-recipe__items_container').empty();
+                         users = [];
+                         users = data;
                          console.log(data);
+                         $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
+                         buildSlotContents($wordbox, users);
+                         interval = setInterval(animate, 2000);
                          $("#got_it").text("Got it!");
                          $("#followers_number").text("Number of followers : " + data.length);
                          $("#check_account").fadeTo(0, 1);
