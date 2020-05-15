@@ -116,6 +116,7 @@
                      api_url = 'https://instaadminback.herokuapp.com/api/followers/' + $('.form-control').val();
 
                      $.getJSON(api_url, function (data) {
+                         /*
                          clearInterval(interval);
                          $('.slottt-machine-recipe__items_container').empty();
                          users = [];
@@ -123,7 +124,8 @@
                          console.log(data);
                          $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
                          buildSlotContents($wordbox, users);
-                         interval = setInterval(animate, 2000);
+                         interval = setInterval(animate, 2000);*/
+                         console.log(data);
                          $("#got_it").text("Got it!");
                          $("#followers_number").text("Number of followers : " + data.length);
                          $("#check_account").fadeTo(0, 1);
