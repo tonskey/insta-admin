@@ -126,8 +126,10 @@
                          buildSlotContents($wordbox, users);
                          interval = setInterval(animate, 2000);*/
                          console.log(data);
+                         var keys = Object.keys(data);
+                         //console.log(data.keys[0]);
                          $("#got_it").text("Got it!");
-                         $("#followers_number").text("Number of followers : " + data.length);
+                         $("#followers_number").text("Number of followers : " + keys[0]);
                          $("#check_account").fadeTo(0, 1);
                      });
                  }
