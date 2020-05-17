@@ -74,7 +74,7 @@
 
 
  function animate() {
-     
+
      var wordIndex = randomSlotttIndex(users.length);
      $wordbox.animate({
          top: -wordIndex * 150
@@ -116,21 +116,24 @@
                      api_url = 'https://instaadminback.herokuapp.com/api/followers/' + $('.form-control').val();
 
                      $.getJSON(api_url, function (data) {
-                         /*
-                         clearInterval(interval);
-                         $('.slottt-machine-recipe__items_container').empty();
-                         users = [];
-                         users = data;
-                         console.log(data);
-                         $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
-                         buildSlotContents($wordbox, users);
-                         interval = setInterval(animate, 2000);*/
-                         console.log(data);
-                         var keys = Object.keys(data);
-                         //console.log(data.keys[0]);
-                         $("#got_it").text("Got it!");
-                         $("#followers_number").text("Number of followers : " + keys[0]);
-                         $("#check_account").fadeTo(0, 1);
+                            //console.log(data);
+                         if (data.msg == "Sorry, you are trying to access private account") {
+                             $("#got_it").text("Sorry");
+                             $("#followers_number").text("You are trying to access private account!");
+                             $("#check_account").fadeTo(0, 1);
+                         } else {
+                             clearInterval(interval);
+                             $('.slottt-machine-recipe__items_container').empty();
+                             users = [];
+                             users = data.foll_list;
+                             $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
+                             buildSlotContents($wordbox, users);
+                             interval = setInterval(animate, 2000);
+                             $("#got_it").text("Got it!");
+                             $("#followers_number").text("Number of followers : " + data.num_of_foll);
+                             $("#check_account").fadeTo(0, 1);
+                         }
+
                      });
                  }
              }
@@ -175,7 +178,6 @@
                  },
                  404: function () {
 
-                     console.log("NO");
                      $(".form-control").removeClass("acc_input_green");
                      $(".form-control").addClass("acc_input_red");
                      //$("#no_acc_msg").fadeIn(100);
@@ -183,7 +185,6 @@
 
                  },
                  200: function () {
-                     console.log("YAY");
                      $(".form-control").removeClass("acc_input_red");
                      $(".form-control").addClass("acc_input_green");
                      $("#no_acc_msg").fadeTo(0, 0);
