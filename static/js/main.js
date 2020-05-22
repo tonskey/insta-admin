@@ -121,6 +121,11 @@
                              $("#got_it").text("Sorry");
                              $("#followers_number").text("You are trying to access private account!");
                              $("#check_account").fadeTo(0, 1);
+                         } else if (parseInt(data.num_of_foll) < 2){
+                             $("#got_it").text("Sorry");
+                             $("#followers_number").text("Your account does not have enough followers!");
+                             $("#check_account").fadeTo(0, 1);
+
                          } else {
                              clearInterval(interval);
                              $('.slottt-machine-recipe__items_container').empty();
