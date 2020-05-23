@@ -54,6 +54,24 @@
     padding-right: 50px;
 }
 
+#sf_field{
+    text-align: center; 
+    width: 156.25px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#sf_field::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: lightgrey;
+  opacity: 1; /* Firefox */
+}
+
+
 #check_account {
     opacity: 0;
     color: white;
@@ -193,7 +211,7 @@ section .wave:after {
     opacity: 0;
 }
 
-.form-field:before {
+#gf_field:before {
     position: absolute;
     left: 25px;
     top: 22px;
