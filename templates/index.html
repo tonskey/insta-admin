@@ -56,8 +56,7 @@
             </div>
         </div>
     </nav>
-
-    <section class="hero-wrap js-fullheight" data-section="home" data-stellar-background-ratio="0.5">
+   <section class="hero-wrap js-fullheight" data-section="home" data-stellar-background-ratio="0.5">
         <!--  style="background-image: url('images/IMG_4396-3.jpg');"  -->
         <div class="overlay"></div>
         <div class="container">
@@ -71,8 +70,8 @@
                             <div class="col-lg-9 align-items-end">
 
                                 <div class="form-group">
-                                    <div class="form-field">
-                                        <input type="text" class="form-control" spellcheck="false" placeholder="Instagram account">
+                                    <div class="form-field" id="gf_field">
+                                        <input type="text" class="form-control" id="gf_control" spellcheck="false" placeholder="Instagram account">
 
 
                                     </div>
@@ -106,45 +105,52 @@
 
 
 
+
+
             <section class="ftco-intro" id="about-section">
                 <div class="overlay"></div>
                 <div class="container">
+
                     <div class="row justify-content-center">
                         <div class="col-md-9 text-center">
                             <h2>Choose Your Winner</h2>
+                            <form action="#" class="search-location h-100">
+                                <div class="row flex-fill" style="margin-top: 30px">
+                                    <div class="col-lg-3 align-items-end"></div>
+                                    <div class="col-lg-3 align-items-end">
 
-                            <div class="row flex-fill">
-                                <div class="col-lg-9 align-items-end">
-
-                                    <div class="form-group">
-                                        <div class="form-field">
-                                            <input type="text" class="form-control" spellcheck="false" placeholder="Instagram account">
+                                        <div class="form-group">
+                                            <div class="form-field">
+                                                <input type="number" class="form-control" id="sf_field" spellcheck="false" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Number'" placeholder="Number">
 
 
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="col-lg-3 align-items-end"></div>
+                                        <!--<button><span class="ion-ios-search"></span></button>-->
+                                        <button type='button' class="btn btn-white" id="shuffle">Shuffle</button>
+
+                                    </div>
+                                </div>
+
+                                <div class="slottt-machine-recipe justify-content-center">
+                                    <div class="slottt-machine-recipe__mask" id="wordbox">
+                                        <div class="slottt-machine-recipe__items_container recipe_if">
                                         </div>
                                     </div>
-
                                 </div>
-                                <div class="col-lg-3">
-                                    <!--<button><span class="ion-ios-search"></span></button>-->
-                                    <button type='button' class="btn btn-white" id="shuffle" style="margin-top: 30px">Shuffle</button>
-
-                                </div>
-                            </div>
-                            
+                            </form>
 
 
-                            <div class="slottt-machine-recipe justify-content-center">
-                                <div class="slottt-machine-recipe__mask" id="wordbox">
-                                    <div class="slottt-machine-recipe__items_container recipe_if">
-                                    </div>
-                                </div>
-                            </div>
+
+
                         </div>
                     </div>
                 </div>
             </section>
-
 
 
 
