@@ -85,11 +85,12 @@
 
                             </div>
                             <div id="no_acc_msg" class="col-md-5">* No matching results</div>
-                            <div id="check_account" class="col-md-12 "><div id="got_it">Got it!</div>
+                            <div id="check_account" class="col-md-12 ">
+                                <div id="got_it">Got it!</div>
                                 <div id="followers_number">Number of followers : </div>
                                 <div id="loading">Loading...</div>
                             </div>
-                            
+
                         </div>
 
 
@@ -111,7 +112,26 @@
                     <div class="row justify-content-center">
                         <div class="col-md-9 text-center">
                             <h2>Choose Your Winner</h2>
-                            <button type='button' class="btn btn-white" id="shuffle" style="margin-top: 30px">Shuffle</button>
+
+                            <div class="row flex-fill">
+                                <div class="col-lg-9 align-items-end">
+
+                                    <div class="form-group">
+                                        <div class="form-field">
+                                            <input type="text" class="form-control" spellcheck="false" placeholder="Instagram account">
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-3">
+                                    <!--<button><span class="ion-ios-search"></span></button>-->
+                                    <button type='button' class="btn btn-white" id="shuffle" style="margin-top: 30px">Shuffle</button>
+
+                                </div>
+                            </div>
+                            
 
 
                             <div class="slottt-machine-recipe justify-content-center">
@@ -167,5 +187,7 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/scrollax.min.js') }}"></script>
 
     <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
 
 </body>

@@ -6,9 +6,6 @@
  // IFTTT Slottt Machine by Jen Hamon
  // jen@ifttt.com
  // github.com/jhamon
-
- var user_names = [];
- var user_avatars = [];
  var $items = [];
  var users = [
 
@@ -102,9 +99,7 @@
 
      url = "https://www.instagram.com/" + $('.form-control').val();
 
-     $("#got_it").text("Got it!");
-     $("#followers_number").text("Number of followers : some");
-     $("#check_account").fadeTo(0, 1);
+
      $.ajax(url, {
          statusCode: {
              405: function () {
@@ -117,29 +112,63 @@
              },
              200: function () {
                  if ($('.form-control').val() != "") {
-                     api_url = 'https://instaadminback.herokuapp.com/api/followers/' + $('.form-control').val();
+
+
+                     //https://instaadminback.herokuapp.com/api/ui/#!/Account32info/followers_service_account_info
+                     //https://instaadminback.herokuapp.com/api/ui/#!/Followers/followers_service_followers/_pyqt_
+
+                     /*
+                        {
+                          "is_private": false,
+                          "msg": "Account exist",
+                          "num_of_foll": 128,
+                          "user_id": 514823932
+                        }
+                        */
+                     api_url = 'https://instaadminback.herokuapp.com/api/account_info/' + $('.form-control').val();
 
                      $.getJSON(api_url, function (data) {
-                         if (data.msg == "Sorry, you are trying to access private account") {
+                         console.log(data);
+                         if (data.is_private) {
                              $("#got_it").text("Sorry");
                              $("#followers_number").text("You are trying to access private account!");
+                             $('#loading').text("");
                              $("#check_account").fadeTo(0, 1);
                          } else if (parseInt(data.num_of_foll) < 2) {
                              $("#got_it").text("Sorry");
                              $("#followers_number").text("Your account does not have enough followers!");
+                             $('#loading').text("");
                              $("#check_account").fadeTo(0, 1);
-
+                         } else if (parseInt(data.num_of_foll) > 200000) {
+                             $("#got_it").text("Error!");
+                             $("#followers_number").text("Number of followers : " + data.num_of_foll);
+                             $("#loading").text("Sorry, currently we cannot process so many followers");
+                             $("#check_account").fadeTo(0, 1);
                          } else {
-                             clearInterval(interval);
-                             $('.slottt-machine-recipe__items_container').empty();
-                             users = [];
-                             users = data.foll_list;
-                             $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
-                             buildSlotContents($wordbox, users);
-                             interval = setInterval(animate, 2000);
                              $("#got_it").text("Got it!");
                              $("#followers_number").text("Number of followers : " + data.num_of_foll);
+                             $('#loading').text("Loading...");
                              $("#check_account").fadeTo(0, 1);
+
+                             api_url_2 = 'https://instaadminback.herokuapp.com/api/followers/' + data.user_id;
+                            
+                             
+                             $.getJSON(api_url_2, function (data2) {
+                                 console.log(data2);
+                                 clearInterval(interval);
+                                 $('.slottt-machine-recipe__items_container').empty();
+
+                                 $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
+                                 buildSlotContents($wordbox, data2.foll_list);
+                                 interval = setInterval(animate, 2000);
+                                 $('#loading').text("Success!");
+                             });
+
+                             /*
+                             $("#got_it").text("Got it!");
+                             $("#followers_number").text("Number of followers : " + data.num_of_foll);*/
+                             
+                             //$("#check_account").fadeTo(0, 1);
                          }
 
                      });
@@ -168,13 +197,13 @@
          getFollowersPress();
      });
 
-     $('.form-control').keyup(function () {
+     $('#gf_control').keyup(function () {
 
          url = "";
-         if ($('.form-control').val().search("instagram.com") >= 0) {
-             url = $('.form-control').val();
+         if ($('#gf_control').val().search("instagram.com") >= 0) {
+             url = $('#gf_control').val();
          } else {
-             url = "https://www.instagram.com/" + $('.form-control').val();
+             url = "https://www.instagram.com/" + $('#gf_control').val();
          }
 
 
@@ -182,19 +211,19 @@
          $.ajax(url, {
              statusCode: {
                  405: function () {
-                     console.log("asdasd");
+                     //console.log("asdasd");
                  },
                  404: function () {
 
-                     $(".form-control").removeClass("acc_input_green");
-                     $(".form-control").addClass("acc_input_red");
+                     $("#gf_control").removeClass("acc_input_green");
+                     $("#gf_control").addClass("acc_input_red");
                      //$("#no_acc_msg").fadeIn(100);
                      $("#no_acc_msg").fadeTo(0, 1);
 
                  },
                  200: function () {
-                     $(".form-control").removeClass("acc_input_red");
-                     $(".form-control").addClass("acc_input_green");
+                     $("#gf_control").removeClass("acc_input_red");
+                     $("#gf_control").addClass("acc_input_green");
                      $("#no_acc_msg").fadeTo(0, 0);
                  }
              }
@@ -209,7 +238,9 @@
 
 
      $("#shuffle").click(function () {
-         console.log(interval);
+
+
+         //console.log(interval);
          clearInterval(interval);
          setTimeout(function () {
              animate();
