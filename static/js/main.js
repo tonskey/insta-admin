@@ -101,6 +101,10 @@
  function getFollowersPress() {
 
      url = "https://www.instagram.com/" + $('.form-control').val();
+
+     $("#got_it").text("Got it!");
+     $("#followers_number").text("Number of followers : some");
+     $("#check_account").fadeTo(0, 1);
      $.ajax(url, {
          statusCode: {
              405: function () {
@@ -116,12 +120,11 @@
                      api_url = 'https://instaadminback.herokuapp.com/api/followers/' + $('.form-control').val();
 
                      $.getJSON(api_url, function (data) {
-                            //console.log(data);
                          if (data.msg == "Sorry, you are trying to access private account") {
                              $("#got_it").text("Sorry");
                              $("#followers_number").text("You are trying to access private account!");
                              $("#check_account").fadeTo(0, 1);
-                         } else if (parseInt(data.num_of_foll) < 2){
+                         } else if (parseInt(data.num_of_foll) < 2) {
                              $("#got_it").text("Sorry");
                              $("#followers_number").text("Your account does not have enough followers!");
                              $("#check_account").fadeTo(0, 1);
