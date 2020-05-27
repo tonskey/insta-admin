@@ -1,8 +1,18 @@
 .slottt-machine-recipe {
     width: auto;
-    margin-top: 50px;
+    margin-top: 20px;
     align-content: center;
     text-align: center;
+    animation: fadein 0.3s backwards;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0
+  }
+  to {
+    opacity: 1
+  }
 }
 
 .slottt-machine-recipe__mask {
@@ -82,6 +92,12 @@ input::-webkit-inner-spin-button {
     opacity: 0;
     color: white;
     margin-top: 5px;
+}
+
+
+#winners_msg{
+    opacity: 0;
+    color: white;
 }
 
 input[type="text"],
