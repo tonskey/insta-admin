@@ -26,6 +26,7 @@
     'chris_nolan'
  ];
 
+ var standart_list = true;
 
  function shuffle_array(array) {
      var tmp, current, top = array.length;
@@ -123,10 +124,15 @@
              404: function () {
                  $("#got_it").text("Error!");
                  $("#followers_number").text("No such account");
+                 $('#loading').text("");
                  $("#check_account").fadeTo(0, 1);
              },
              200: function () {
                  if ($('.form-control').val() != "") {
+                     $("#got_it").text("Procesing");
+                     $("#followers_number").text("");
+                     $('#loading').text("");
+                     $("#check_account").fadeTo(0, 1);
 
 
                      //https://instaadminback.herokuapp.com/api/ui/#!/Account32info/followers_service_account_info
@@ -176,6 +182,21 @@
                                  $('.slottt-machine-recipe__items_container').empty();
 
                                  users = data2.foll_list;
+                                 /*
+                                 standart_list = false;
+                                
+                                 $(".slottt-machine-recipe").remove();
+                                  $('#shuffle_form').append('\
+                                <div class="slottt-machine-recipe justify-content-center">\
+                                    <div class="slottt-machine-recipe__mask" id="wordbox">\
+                                        <div class="slottt-machine-recipe__items_container recipe_if">\
+                                        </div>\
+                                    </div>\
+                                </div>\
+                                             ');
+                                 $("#sf_field").val("1");
+                                 */
+                                 standart_list = false;
 
                                  $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
                                  buildSlotContents($wordbox, data2.foll_list);
@@ -202,10 +223,9 @@
 
  function shuffle_click(prev_numb) {
      var temp_json = users;
-     //console.log();
      var i;
      if (prev_numb == 0 || prev_numb != $("#sf_field").val()) {
-         if ($("#sf_field").val() > 0 && $("#sf_field").val() <= json_list_num) {
+         if ($("#sf_field").val() > 0 && $("#sf_field").val() <= json_list_num && standart_list == false) {
 
              $("#winners_msg").fadeTo(1, 0);
              $(".slottt-machine-recipe").remove();
@@ -238,6 +258,7 @@
                      $('.slottt-machine-recipe').each(function () {
                          var delay = $(this).index();
                          $(this).css('animation-delay', delay + 's');
+
                      });
                      clearInterval(interval);
                      //$('.slottt-machine-recipe__items_container').empty();
@@ -253,12 +274,32 @@
                           animate();
                       }, 100);*/
                  }
+
+                 confetti({
+                     particleCount: 100,
+                     spread: 70,
+                     angle: 60,
+                     origin: {
+                         x: 0.1,
+                         y: 1
+                     }
+                 });
+
+                 confetti({
+                     particleCount: 100,
+                     spread: 70,
+                     angle: 120,
+                     origin: {
+                         x: 0.9,
+                         y: 1
+                     }
+                 });
              }
 
 
 
 
-         } else if (users[0] == "bill_gates") {
+         } else if (standart_list) {
 
              $(".slottt-machine-recipe").remove();
 
@@ -287,6 +328,27 @@
                  buildSlotContents($wordbox, users);
                  users.shift();
              }
+
+             confetti({
+                 particleCount: 100,
+                 spread: 70,
+                 angle: 60,
+                 origin: {
+                     x: 0.1,
+                     y: 1
+                 }
+             });
+
+             confetti({
+                 particleCount: 100,
+                 spread: 70,
+                 angle: 120,
+                 origin: {
+                     x: 0.9,
+                     y: 1
+                 }
+             });
+             
          } else {
              $("#winners_msg").fadeTo(0, 1);
 
@@ -297,6 +359,118 @@
 
      }
  }
+ /*
+  function shuffle_click(prev_numb) {
+      var temp_json = users;
+      var i;
+      if (prev_numb == 0 || prev_numb != $("#sf_field").val()) {
+          if ($("#sf_field").val() > 0 && $("#sf_field").val() <= json_list_num) { // && standart_list == false
+
+              $("#winners_msg").fadeTo(1, 0);
+              $(".slottt-machine-recipe").remove();
+
+              var limit;
+              if (json_list_num > 50) {
+                  limit = 50;
+              } else {
+                  limit = json_list_num;
+              }
+
+              if ($("#sf_field").val() > limit) {
+                  $("#winners_msg").fadeTo(0, 1);
+              } else {
+                  for (i = 1; i <= $("#sf_field").val(); i++) {
+
+                      temp_json = shuffle_array(temp_json);
+
+                      $('#shuffle_form').append('\
+                                 <div class="slottt-machine-recipe justify-content-center">\
+                                     <div class="slottt-machine-recipe__mask" id="wordbox">\
+                                         <div class="slottt-machine-recipe__items_container recipe_if">\
+                                         </div>\
+                                     </div>\
+                                 </div>\
+                                              ');
+
+                      $('.slottt-machine-recipe').each(function () {
+                          var delay = $(this).index();
+                          $(this).css('animation-delay', delay + 's');
+                      });
+                      clearInterval(interval);
+                      //$('.slottt-machine-recipe__items_container').empty();
+
+                      $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
+                      buildSlotContents($wordbox, temp_json);
+                      temp_json.shift();
+
+                      
+                      //interval = setInterval(animate, 2000);
+                      //clearInterval(interval);
+                       //setTimeout(function () {
+                     //      animate();
+                      // }, 100);
+                  }
+              }
+
+
+
+
+          } else if (standart_list) {
+              console.log("")
+              var users = [
+
+                 'bill_gates',
+                 'brad_pitt',
+                 'donald_trump',
+                 'your_mum',
+                 'bruh_moment',
+                 'some_guy',
+                 'juicy_pickle',
+                 'the_weeknd',
+                 'some_kardashian',
+                 'mark_zuckenberg',
+                 'stanley_kubrick',
+                 'chris_nolan'
+              ];
+
+              $(".slottt-machine-recipe").remove();
+
+              for (i = 1; i <= $("#sf_field").val(); i++) {
+
+                  users = shuffle_array(users);
+                  //users = ["23213", 'asdasd', "asdadasd"];
+                  //console.log(users);
+
+                  $('#shuffle_form').append('\
+                                 <div class="slottt-machine-recipe justify-content-center">\
+                                     <div class="slottt-machine-recipe__mask" id="wordbox">\
+                                         <div class="slottt-machine-recipe__items_container recipe_if">\
+                                         </div>\
+                                     </div>\
+                                 </div>\
+                                              ');
+                  $('.slottt-machine-recipe').each(function () {
+                      var delay = $(this).index();
+                      $(this).css('animation-delay', delay + 's');
+                  });
+                  clearInterval(interval);
+                  //$('.slottt-machine-recipe__items_container').empty();
+
+                  $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
+                  buildSlotContents($wordbox, users);
+                  users.shift();
+              }
+          } else {
+              $("#winners_msg").fadeTo(0, 1);
+
+          }
+
+
+          prev_numb = $("#sf_field").val();
+
+      }
+  }
+*/
 
  $(document).ready(function () {
      var url = "";

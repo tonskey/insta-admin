@@ -1,6 +1,6 @@
 .slottt-machine-recipe {
     width: auto;
-    margin-top: 20px;
+    margin-top: 0px;
     align-content: center;
     text-align: center;
     animation: fadein 0.3s backwards;
@@ -17,7 +17,7 @@
 
 .slottt-machine-recipe__mask {
     width: 100%;
-    height: 150px;
+    height: 90px;
     overflow: hidden;
     position: relative;
     display: inline-block;
@@ -36,7 +36,9 @@
     margin: 0px;
     padding: 0px;
     background-size: contain;
+    text-align: center !important;
 }
+
 
 .recipe_if,
 .recipe_then {
