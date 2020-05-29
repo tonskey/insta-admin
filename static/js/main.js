@@ -221,6 +221,7 @@
                                  users = data2.foll_list;
                                  standart_list = false;
                                  dont_shuffle = false;
+                                 $("#winners_msg").fadeTo(1, 0);
                                  $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
                                  buildSlotContents($wordbox, data2.foll_list);
                                  //interval = setInterval(animate, 2000);
