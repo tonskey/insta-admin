@@ -156,16 +156,25 @@
                              $("#followers_number").text("You are trying to access private account!");
                              $('#loading').text("");
                              $("#check_account").fadeTo(0, 1);
+                             standart_list = true;
+                             $(".slottt-machine-recipe").remove();
+                             $("#sf_field").val("1");
                          } else if (parseInt(data.num_of_foll) < 1) {
                              $("#got_it").text("Sorry");
                              $("#followers_number").text("Your account does not have enough followers!");
                              $('#loading').text("");
                              $("#check_account").fadeTo(0, 1);
+                             standart_list = true;
+                             $(".slottt-machine-recipe").remove();
+                             $("#sf_field").val("1");
                          } else if (parseInt(data.num_of_foll) > 200000) {
                              $("#got_it").text("Error!");
                              $("#followers_number").text("Number of followers : " + data.num_of_foll);
                              $("#loading").text("Sorry, currently we cannot process so many followers");
                              $("#check_account").fadeTo(0, 1);
+                             standart_list = true;
+                             $(".slottt-machine-recipe").remove();
+                             $("#sf_field").val("1");
                          } else {
                              json_list_num = data.num_of_foll;
                              $("#got_it").text("Got it!");
@@ -225,28 +234,20 @@
      var temp_json = users;
      var i;
      if (prev_numb == 0 || prev_numb != $("#sf_field").val()) {
-         if ($("#sf_field").val() > 0 && $("#sf_field").val() <= json_list_num && standart_list == false) {
+         if ($("#sf_field").val() > 0 && $("#sf_field").val() <= 50) {
 
-             $("#winners_msg").fadeTo(1, 0);
-             $(".slottt-machine-recipe").remove();
+             if (standart_list) {
 
-             var limit;
-             if (json_list_num > 50) {
-                 limit = 50
-             } else {
-                 limit = json_list_num;
-             }
+                 $("#winners_msg").fadeTo(1, 0);
 
-             if ($("#sf_field").val() > limit) {
-                 $("#winners_msg").fadeTo(0, 1);
-             } else {
-                 for (i = 1; i <= $("#sf_field").val(); i++) {
+                 if ($("#sf_field").val() <= users.length) {
+                     $(".slottt-machine-recipe").remove();
 
-                     temp_json = shuffle_array(temp_json);
-                     //users = ["23213", 'asdasd', "asdadasd"];
-                     //console.log(users);
+                     for (i = 1; i <= $("#sf_field").val(); i++) {
 
-                     $('#shuffle_form').append('\
+                         users = shuffle_array(users);
+
+                         $('#shuffle_form').append('\
                                 <div class="slottt-machine-recipe justify-content-center">\
                                     <div class="slottt-machine-recipe__mask" id="wordbox">\
                                         <div class="slottt-machine-recipe__items_container recipe_if">\
@@ -254,62 +255,63 @@
                                     </div>\
                                 </div>\
                                              ');
+                         $('.slottt-machine-recipe').each(function () {
+                             var delay = $(this).index();
+                             $(this).css('animation-delay', delay + 's');
+                         });
+                         clearInterval(interval);
 
-                     $('.slottt-machine-recipe').each(function () {
-                         var delay = $(this).index();
-                         $(this).css('animation-delay', delay + 's');
+                         $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
+                         buildSlotContents($wordbox, users);
+                         users.shift();
+                     }
 
+                     confetti({
+                         particleCount: 100,
+                         spread: 70,
+                         angle: 60,
+                         origin: {
+                             x: 0.1,
+                             y: 1
+                         }
                      });
-                     clearInterval(interval);
-                     //$('.slottt-machine-recipe__items_container').empty();
 
-                     $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
-                     buildSlotContents($wordbox, temp_json);
-                     temp_json.shift();
-
-                     /*
-                     interval = setInterval(animate, 2000);
-                     clearInterval(interval);
-                      setTimeout(function () {
-                          animate();
-                      }, 100);*/
+                     confetti({
+                         particleCount: 100,
+                         spread: 70,
+                         angle: 120,
+                         origin: {
+                             x: 0.9,
+                             y: 1
+                         }
+                     });
+                 } else {
+                     $("#winners_msg").text("You can choose only from 1 to " + users.length + " winners");
+                     $("#winners_msg").fadeTo(0, 1);
                  }
 
-                 confetti({
-                     particleCount: 100,
-                     spread: 70,
-                     angle: 60,
-                     origin: {
-                         x: 0.1,
-                         y: 1
-                     }
-                 });
 
-                 confetti({
-                     particleCount: 100,
-                     spread: 70,
-                     angle: 120,
-                     origin: {
-                         x: 0.9,
-                         y: 1
-                     }
-                 });
-             }
+             } else {
 
+                 $("#winners_msg").fadeTo(1, 0);
+                 $(".slottt-machine-recipe").remove();
 
+                 var limit;
+                 if (json_list_num > 50) {
+                     limit = 50
+                 } else {
+                     limit = json_list_num;
+                 }
 
+                 if ($("#sf_field").val() > limit) {
+                     $("#winners_msg").text("You can choose only from 1 to " + limit + " winners");
+                     $("#winners_msg").fadeTo(0, 1);
+                 } else {
+                     for (i = 1; i <= $("#sf_field").val(); i++) {
 
-         } else if (standart_list) {
+                         temp_json = shuffle_array(temp_json);
 
-             $(".slottt-machine-recipe").remove();
-
-             for (i = 1; i <= $("#sf_field").val(); i++) {
-
-                 users = shuffle_array(users);
-                 //users = ["23213", 'asdasd', "asdadasd"];
-                 //console.log(users);
-
-                 $('#shuffle_form').append('\
+                         $('#shuffle_form').append('\
                                 <div class="slottt-machine-recipe justify-content-center">\
                                     <div class="slottt-machine-recipe__mask" id="wordbox">\
                                         <div class="slottt-machine-recipe__items_container recipe_if">\
@@ -317,43 +319,54 @@
                                     </div>\
                                 </div>\
                                              ');
-                 $('.slottt-machine-recipe').each(function () {
-                     var delay = $(this).index();
-                     $(this).css('animation-delay', delay + 's');
-                 });
-                 clearInterval(interval);
-                 //$('.slottt-machine-recipe__items_container').empty();
 
-                 $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
-                 buildSlotContents($wordbox, users);
-                 users.shift();
+                         $('.slottt-machine-recipe').each(function () {
+                             var delay = $(this).index();
+                             $(this).css('animation-delay', delay + 's');
+
+                         });
+                         clearInterval(interval);
+                         //$('.slottt-machine-recipe__items_container').empty();
+
+                         $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
+                         buildSlotContents($wordbox, temp_json);
+                         temp_json.shift();
+
+                         /*
+                         interval = setInterval(animate, 2000);
+                         clearInterval(interval);
+                          setTimeout(function () {
+                              animate();
+                          }, 100);*/
+                     }
+
+                     confetti({
+                         particleCount: 100,
+                         spread: 70,
+                         angle: 60,
+                         origin: {
+                             x: 0.1,
+                             y: 1
+                         }
+                     });
+
+                     confetti({
+                         particleCount: 100,
+                         spread: 70,
+                         angle: 120,
+                         origin: {
+                             x: 0.9,
+                             y: 1
+                         }
+                     });
+                 }
              }
 
-             confetti({
-                 particleCount: 100,
-                 spread: 70,
-                 angle: 60,
-                 origin: {
-                     x: 0.1,
-                     y: 1
-                 }
-             });
-
-             confetti({
-                 particleCount: 100,
-                 spread: 70,
-                 angle: 120,
-                 origin: {
-                     x: 0.9,
-                     y: 1
-                 }
-             });
-             
          } else {
+             $("#winners_msg").text("You can choose only from 1 to 50 winners");
              $("#winners_msg").fadeTo(0, 1);
 
          }
-
 
          prev_numb = $("#sf_field").val();
 
@@ -563,7 +576,11 @@
  });
 
 
-
+ document.querySelector("#sf_field").addEventListener("keypress", function (evt) {
+     if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57) {
+         evt.preventDefault();
+     }
+ });
 
 
  (function ($) {
