@@ -27,6 +27,7 @@
  ];
 
  var standart_list = true;
+ var dont_shuffle = false;
 
  function shuffle_array(array) {
      var tmp, current, top = array.length;
@@ -159,6 +160,12 @@
                              standart_list = true;
                              $(".slottt-machine-recipe").remove();
                              $("#sf_field").val("1");
+
+                             $("#winners_msg").text("You are trying to shuffle with private account!");
+                             $("#winners_msg").fadeTo(0, 1);
+
+                             dont_shuffle = true;
+
                          } else if (parseInt(data.num_of_foll) < 1) {
                              $("#got_it").text("Sorry");
                              $("#followers_number").text("Your account does not have enough followers!");
@@ -167,6 +174,12 @@
                              standart_list = true;
                              $(".slottt-machine-recipe").remove();
                              $("#sf_field").val("1");
+
+                             $("#winners_msg").text("Your account does not have enough followers");
+                             $("#winners_msg").fadeTo(0, 1);
+
+                             dont_shuffle = true;
+
                          } else if (parseInt(data.num_of_foll) > 200000) {
                              $("#got_it").text("Error!");
                              $("#followers_number").text("Number of followers : " + data.num_of_foll);
@@ -175,6 +188,11 @@
                              standart_list = true;
                              $(".slottt-machine-recipe").remove();
                              $("#sf_field").val("1");
+
+                             $("#winners_msg").text("We can't process this many followers");
+                             $("#winners_msg").fadeTo(0, 1);
+
+                             dont_shuffle = true;
                          } else {
                              json_list_num = data.num_of_foll;
                              $("#got_it").text("Got it!");
@@ -189,13 +207,9 @@
                                  //console.log(data2);
                                  clearInterval(interval);
                                  $('.slottt-machine-recipe__items_container').empty();
-
-                                 users = data2.foll_list;
-                                 /*
-                                 standart_list = false;
-                                
                                  $(".slottt-machine-recipe").remove();
-                                  $('#shuffle_form').append('\
+
+                                 $('#shuffle_form').append('\
                                 <div class="slottt-machine-recipe justify-content-center">\
                                     <div class="slottt-machine-recipe__mask" id="wordbox">\
                                         <div class="slottt-machine-recipe__items_container recipe_if">\
@@ -204,9 +218,9 @@
                                 </div>\
                                              ');
                                  $("#sf_field").val("1");
-                                 */
+                                 users = data2.foll_list;
                                  standart_list = false;
-
+                                 dont_shuffle = false;
                                  $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
                                  buildSlotContents($wordbox, data2.foll_list);
                                  //interval = setInterval(animate, 2000);
@@ -231,6 +245,12 @@
 
 
  function shuffle_click(prev_numb) {
+     
+     if (dont_shuffle){
+         return;
+     }
+     
+     
      var temp_json = users;
      var i;
      if (prev_numb == 0 || prev_numb != $("#sf_field").val()) {
@@ -240,12 +260,30 @@
 
                  $("#winners_msg").fadeTo(1, 0);
 
-                 if ($("#sf_field").val() <= users.length) {
+                 var temp_standart_list = [
+
+                        'bill_gates',
+                        'brad_pitt',
+                        'donald_trump',
+                        'your_mum',
+                        'bruh_moment',
+                        'some_guy',
+                        'juicy_pickle',
+                        'the_weeknd',
+                        'some_kardashian',
+                        'mark_zuckenberg',
+                        'stanley_kubrick',
+                        'chris_nolan'
+                    ];
+
+                 if ($("#sf_field").val() <= temp_standart_list.length) {
+
+
                      $(".slottt-machine-recipe").remove();
 
                      for (i = 1; i <= $("#sf_field").val(); i++) {
 
-                         users = shuffle_array(users);
+                         temp_standart_list = shuffle_array(temp_standart_list);
 
                          $('#shuffle_form').append('\
                                 <div class="slottt-machine-recipe justify-content-center">\
@@ -262,8 +300,8 @@
                          clearInterval(interval);
 
                          $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
-                         buildSlotContents($wordbox, users);
-                         users.shift();
+                         buildSlotContents($wordbox, temp_standart_list);
+                         temp_standart_list.shift();
                      }
 
                      confetti({
