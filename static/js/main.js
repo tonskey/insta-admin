@@ -124,7 +124,7 @@
      clearInterval(interval);
      $('.slottt-machine-recipe__items_container').empty();
      $(".slottt-machine-recipe").remove();
-
+    /*
      $('#shuffle_form').append('\
 <div class="slottt-machine-recipe justify-content-center">\
     <div class="slottt-machine-recipe__mask" id="wordbox">\
@@ -132,7 +132,7 @@
         </div>\
     </div>\
 </div>\
-                ');
+                ');*/
      $("#sf_field").val("1");
 
      if (data.foll_list == null) {
@@ -207,7 +207,7 @@
 
                          } else if (parseInt(data.num_of_foll) < 1) {
                              $("#got_it").text("Sorry");
-                             $("#followers_number").text("Your account does not have enough followers!");
+                             $("#followers_number").text("Your account does not have any followers!");
                              $('#loading').text("");
                              $("#check_account").fadeTo(0, 1);
                              standart_list = true;
@@ -221,7 +221,7 @@
 
                          } else if (parseInt(data.num_of_foll) > 200000) {
                              $("#got_it").text("Error!");
-                             $("#followers_number").text("Number of followers : " + data.num_of_foll);
+                             $("#followers_number").text("Number of followers: " + data.num_of_foll);
                              $("#loading").text("Sorry, currently we cannot process so many followers");
                              $("#check_account").fadeTo(0, 1);
                              standart_list = true;
@@ -235,7 +235,7 @@
                          } else {
                              json_list_num = data.num_of_foll;
                              $("#got_it").text("Got it!");
-                             $("#followers_number").text("Number of followers : " + data.num_of_foll);
+                             $("#followers_number").text("Number of followers: " + data.num_of_foll);
                              $('#loading').text("Loading...");
                              $("#check_account").fadeTo(0, 1);
 
