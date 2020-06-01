@@ -136,7 +136,8 @@
      $("#sf_field").val("1");
 
      if (data.foll_list == null) {
-         alert("Instagram server error");
+         //alert("Instagram server error");
+          $('#loading').text("Sorry, instagram server error");
      } else {
          users = data.foll_list;
          standart_list = false;
