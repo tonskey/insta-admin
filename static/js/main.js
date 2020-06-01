@@ -6,7 +6,7 @@
  // IFTTT Slottt Machine by Jen Hamon
  // jen@ifttt.com
  // github.com/jhamon
- var socket = io('https://instaadminback.herokuapp.com');
+ var socket = io('https://instaadminback.herokuapp.com', {transports: ['websocket']});
  var json_list;
  var json_list_num;
  var $items = [];
