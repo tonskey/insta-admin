@@ -6,7 +6,9 @@
  // IFTTT Slottt Machine by Jen Hamon
  // jen@ifttt.com
  // github.com/jhamon
- var socket = io('https://instaadminback.herokuapp.com', {transports: ['websocket']});
+ var socket = io('https://instaadminback.herokuapp.com', {
+     transports: ['websocket']
+ });
  var json_list;
  var json_list_num;
  var $items = [];
@@ -111,19 +113,19 @@
      });
  }
 
-//  socket.on('other_client_connected', (data) => {
-//      console.log('other client connected')
-//  })
+ //  socket.on('other_client_connected', (data) => {
+ //      console.log('other client connected')
+ //  })
  socket.on('followers_received', (data) => {
      console.log('followers received:', data)
  })
  socket.on('followers_response', (data) => {
-     console.log(data)
-    clearInterval(interval);
-    $('.slottt-machine-recipe__items_container').empty();
-    $(".slottt-machine-recipe").remove();
 
-    $('#shuffle_form').append('\
+     clearInterval(interval);
+     $('.slottt-machine-recipe__items_container').empty();
+     $(".slottt-machine-recipe").remove();
+
+     $('#shuffle_form').append('\
 <div class="slottt-machine-recipe justify-content-center">\
     <div class="slottt-machine-recipe__mask" id="wordbox">\
         <div class="slottt-machine-recipe__items_container recipe_if">\
@@ -131,16 +133,23 @@
     </div>\
 </div>\
                 ');
-    $("#sf_field").val("1");
-    users = data.foll_list;
-    standart_list = false;
-    dont_shuffle = false;
-    $("#winners_msg").fadeTo(1, 0);
-    $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
-    buildSlotContents($wordbox, data.foll_list);
-    //interval = setInterval(animate, 2000);
-    $('#loading').text("All followers loaded!");
+     $("#sf_field").val("1");
+
+     if (data.foll_list == null) {
+         alert("Instagram server error");
+     } else {
+         users = data.foll_list;
+         standart_list = false;
+         dont_shuffle = false;
+         console.log(data);
+         $("#winners_msg").fadeTo(1, 0);
+         $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
+         buildSlotContents($wordbox, data.foll_list);
+         //interval = setInterval(animate, 2000);
+         $('#loading').text("All followers loaded!");
+     }
  })
+
  function getFollowersPress() {
 
      url = "https://www.instagram.com/" + $('.form-control').val();
@@ -159,7 +168,7 @@
              },
              200: function () {
                  if ($('.form-control').val() != "") {
-                     $("#got_it").text("Procesing");
+                     $("#got_it").text("Processing");
                      $("#followers_number").text("");
                      $('#loading').text("");
                      $("#check_account").fadeTo(0, 1);
@@ -229,32 +238,32 @@
                              $('#loading').text("Loading...");
                              $("#check_account").fadeTo(0, 1);
 
-                            //  api_url_2 = 'https://instaadminback.herokuapp.com/api/followers/' + data.user_id;
-                            socket.emit("followers", data.user_id);
-                            //  $.getJSON(api_url_2, function (data2) {
-                            //      //console.log(data2);
-                            //      clearInterval(interval);
-                            //      $('.slottt-machine-recipe__items_container').empty();
-                            //      $(".slottt-machine-recipe").remove();
+                             //  api_url_2 = 'https://instaadminback.herokuapp.com/api/followers/' + data.user_id;
+                             socket.emit("followers", data.user_id);
+                             //  $.getJSON(api_url_2, function (data2) {
+                             //      //console.log(data2);
+                             //      clearInterval(interval);
+                             //      $('.slottt-machine-recipe__items_container').empty();
+                             //      $(".slottt-machine-recipe").remove();
 
-                            //      $('#shuffle_form').append('\
-                            //     <div class="slottt-machine-recipe justify-content-center">\
-                            //         <div class="slottt-machine-recipe__mask" id="wordbox">\
-                            //             <div class="slottt-machine-recipe__items_container recipe_if">\
-                            //             </div>\
-                            //         </div>\
-                            //     </div>\
-                            //                  ');
-                            //      $("#sf_field").val("1");
-                            //      users = data2.foll_list;
-                            //      standart_list = false;
-                            //      dont_shuffle = false;
-                            //      $("#winners_msg").fadeTo(1, 0);
-                            //      $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
-                            //      buildSlotContents($wordbox, data2.foll_list);
-                            //      //interval = setInterval(animate, 2000);
-                            //      $('#loading').text("All followers loaded!");
-                            //  });
+                             //      $('#shuffle_form').append('\
+                             //     <div class="slottt-machine-recipe justify-content-center">\
+                             //         <div class="slottt-machine-recipe__mask" id="wordbox">\
+                             //             <div class="slottt-machine-recipe__items_container recipe_if">\
+                             //             </div>\
+                             //         </div>\
+                             //     </div>\
+                             //                  ');
+                             //      $("#sf_field").val("1");
+                             //      users = data2.foll_list;
+                             //      standart_list = false;
+                             //      dont_shuffle = false;
+                             //      $("#winners_msg").fadeTo(1, 0);
+                             //      $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
+                             //      buildSlotContents($wordbox, data2.foll_list);
+                             //      //interval = setInterval(animate, 2000);
+                             //      $('#loading').text("All followers loaded!");
+                             //  });
 
                              /*
                              $("#got_it").text("Got it!");
@@ -274,12 +283,12 @@
 
 
  function shuffle_click(prev_numb) {
-     
-     if (dont_shuffle){
+
+     if (dont_shuffle) {
          return;
      }
-     
-     
+
+
      var temp_json = users;
      var i;
      if (prev_numb == 0 || prev_numb != $("#sf_field").val()) {
