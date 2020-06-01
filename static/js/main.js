@@ -283,14 +283,18 @@
  }
 
 
+
  function shuffle_click(prev_numb) {
 
      if (dont_shuffle) {
          return;
      }
 
-
-     var temp_json = users;
+     //console.log(users);
+     var temp_json;
+     temp_json = users;
+     
+     var array_ex_machina = [];
      var i;
      if (prev_numb == 0 || prev_numb != $("#sf_field").val()) {
          if ($("#sf_field").val() > 0 && $("#sf_field").val() <= 50) {
@@ -385,8 +389,11 @@
                      $("#winners_msg").fadeTo(0, 1);
                  } else {
                      for (i = 1; i <= $("#sf_field").val(); i++) {
-
-                         temp_json = shuffle_array(temp_json);
+                         
+                         while (array_ex_machina.includes(temp_json[0])){
+                             temp_json = shuffle_array(temp_json);
+                         }
+                         
 
                          $('#shuffle_form').append('\
                                 <div class="slottt-machine-recipe justify-content-center">\
@@ -407,7 +414,9 @@
 
                          $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
                          buildSlotContents($wordbox, temp_json);
-                         temp_json.shift();
+                         array_ex_machina.push(temp_json[0])
+                         //temp_json.shift();
+                         console.log(users);
 
                          /*
                          interval = setInterval(animate, 2000);
