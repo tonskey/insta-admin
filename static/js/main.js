@@ -200,7 +200,7 @@
                              $(".slottt-machine-recipe").remove();
                              $("#sf_field").val("1");
 
-                             $("#winners_msg").text("You are trying to shuffle with private account!");
+                             $("#winners_msg").text("Followers of this account cannot be shuffled!");
                              $("#winners_msg").fadeTo(0, 1);
 
                              dont_shuffle = true;
@@ -214,7 +214,7 @@
                              $(".slottt-machine-recipe").remove();
                              $("#sf_field").val("1");
 
-                             $("#winners_msg").text("Your account does not have enough followers");
+                             $("#winners_msg").text("Followers of this account cannot be shuffled!");
                              $("#winners_msg").fadeTo(0, 1);
 
                              dont_shuffle = true;
@@ -287,6 +287,8 @@
  function shuffle_click(prev_numb) {
 
      if (dont_shuffle) {
+         $("#winners_msg").text("Followers of this account cannot be shuffled!");
+         $("#winners_msg").fadeTo(0, 1);
          return;
      }
 
