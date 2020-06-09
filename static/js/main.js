@@ -215,7 +215,30 @@
                                  $("#followers_number").text("Number of followers: " + data.num_of_foll);
                                  $('#loading').text("Loading...");
                                  $("#check_account").fadeTo(0, 1);
-                                 socket.emit("followers", data.user_id);
+                              
+                                 api_url_2 = 'https://instaadminback.herokuapp.com/api/followers/' + data.user_id;
+                                 $.getJSON(api_url_2, function (data2) {
+                                   clearInterval(interval);
+                                   $('.slottt-machine-recipe__items_container').empty();
+                                   $(".slottt-machine-recipe").remove();
+
+                                   $("#sf_field").val("1");
+
+                                   if (data2.foll_list == null) {
+                                       //alert("Instagram server error");
+                                       $('#loading').text("Sorry, instagram server error");
+                                   } else {
+                                       users = data2.foll_list;
+                                       standart_list = false;
+                                       dont_shuffle = false;
+                                       console.log(data2);
+                                       $("#winners_msg").fadeTo(1, 0);
+                                       $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
+                                       buildSlotContents($wordbox, data2.foll_list);
+                                       //interval = setInterval(animate, 2000);
+                                       $('#loading').text("All followers loaded!");
+                                   }
+                                 });
                              }
 
                          });
