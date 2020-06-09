@@ -196,7 +196,7 @@
 
                                  dont_shuffle = true;
 
-                             } else if (parseInt(data.num_of_foll) > 200000) {
+                             } else if (parseInt(data.num_of_foll) > 10000) {
                                  $("#got_it").text("Error!");
                                  $("#followers_number").text("Number of followers: " + data.num_of_foll);
                                  $("#loading").text("Sorry, currently we cannot process so many followers");
@@ -248,7 +248,14 @@
 
 
          $.getJSON(url, function (data) {
-             if (data.msg == "Success") {
+             
+             if (parseInt(data.number_of_all_foll) > 10000){
+
+                 $("#got_it").text("Error!");
+                 $("#followers_number").text("Sorry, currently we cannot process so many followers");
+                 $('#loading').text("");
+                 $("#check_account").fadeTo(0, 1);
+             } else if (data.msg == "Success") {
                  console.log(data.number_of_all_foll);
                  all_followers = data.number_of_all_foll
                  json_list_num = all_followers;
