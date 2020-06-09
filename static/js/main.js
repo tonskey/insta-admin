@@ -6,9 +6,10 @@
  // IFTTT Slottt Machine by Jen Hamon
  // jen@ifttt.com
  // github.com/jhamon
- var socket = io('https://instaadminback.herokuapp.com', {
-     transports: ['websocket']
- });
+
+//  var socket = io('https://instaadminback.herokuapp.com', {
+//      transports: ['websocket']
+//  });
  var json_list;
  var json_list_num;
  var $items = [];
@@ -114,33 +115,33 @@
  }
 
 
- socket.on('followers_received', (data) => {
-     console.log('followers received:', data)
- })
+//  socket.on('followers_received', (data) => {
+//      console.log('followers received:', data)
+//  })
 
- socket.on('followers_response', (data) => {
+//  socket.on('followers_response', (data) => {
 
-     clearInterval(interval);
-     $('.slottt-machine-recipe__items_container').empty();
-     $(".slottt-machine-recipe").remove();
+//      clearInterval(interval);
+//      $('.slottt-machine-recipe__items_container').empty();
+//      $(".slottt-machine-recipe").remove();
 
-     $("#sf_field").val("1");
+//      $("#sf_field").val("1");
 
-     if (data.foll_list == null) {
-         //alert("Instagram server error");
-         $('#loading').text("Sorry, instagram server error");
-     } else {
-         users = data.foll_list;
-         standart_list = false;
-         dont_shuffle = false;
-         console.log(data);
-         $("#winners_msg").fadeTo(1, 0);
-         $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
-         buildSlotContents($wordbox, data.foll_list);
-         //interval = setInterval(animate, 2000);
-         $('#loading').text("All followers loaded!");
-     }
- })
+//      if (data.foll_list == null) {
+//          //alert("Instagram server error");
+//          $('#loading').text("Sorry, instagram server error");
+//      } else {
+//          users = data.foll_list;
+//          standart_list = false;
+//          dont_shuffle = false;
+//          console.log(data);
+//          $("#winners_msg").fadeTo(1, 0);
+//          $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
+//          buildSlotContents($wordbox, data.foll_list);
+//          //interval = setInterval(animate, 2000);
+//          $('#loading').text("All followers loaded!");
+//      }
+//  })
 
  
 
@@ -286,7 +287,7 @@
                  $("#followers_number").text("Number of all followers: " + all_followers);
                  $('#loading').text("All followers loaded!");
                  $("#check_account").fadeTo(0, 1);
-                 socket.emit("get_multiple_list_followers", data.user_ids);
+//                  socket.emit("get_multiple_list_followers", data.user_ids);
              } else {
                  $("#got_it").text("Error!");
                  $("#followers_number").text("One or more account might be private or have 0 followers");
