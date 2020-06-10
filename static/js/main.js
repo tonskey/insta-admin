@@ -294,11 +294,11 @@
                      //console.log(data.number_of_all_foll);
 
                      $("#got_it").text("Got it!");
-                     $("#followers_number").text("Total followers loaded: " + all_followers);
+                     $("#followers_number").text("Total followers loaded: " + data.number_of_all_foll);
                      $('#loading').text("Loading...");
                      $("#check_account").fadeTo(0, 1);
 
-                     api_url_3 = 'https://7c60df78c743.ngrok.io/api/multiple_followers/' + data.users_id;
+                     api_url_3 = 'https://7c60df78c743.ngrok.io/api/multiple_followers/' + data.user_ids;
 
 
                      $.getJSON(api_url_3, function (data) {
@@ -321,8 +321,9 @@
                              standart_list = false;
                              dont_shuffle = false;
                              $("#winners_msg").fadeTo(1, 0);
+                             /*
                              $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
-                             buildSlotContents($wordbox, data.foll_list);
+                             buildSlotContents($wordbox, data.foll_list);*/
                              $('#loading').text("All followers loaded!");
                          }
 
