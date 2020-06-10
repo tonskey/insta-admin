@@ -6,10 +6,9 @@
  // IFTTT Slottt Machine by Jen Hamon
  // jen@ifttt.com
  // github.com/jhamon
- /*
-  var socket = io('https://instaadminback.herokuapp.com', {
-      transports: ['websocket']
-  });*/
+ var socket = io('https://instaadminback.herokuapp.com', {
+     transports: ['websocket']
+ });
  var json_list;
  var json_list_num;
  var $items = [];
@@ -114,255 +113,179 @@
      });
  }
 
-
- /*
-  socket.on('followers_received', (data) => {
-      console.log('followers received:', data)
-  })
-
-  socket.on('followers_response', (data) => {
-
-      clearInterval(interval);
-      $('.slottt-machine-recipe__items_container').empty();
-      $(".slottt-machine-recipe").remove();
-
-      $("#sf_field").val("1");
-
-      if (data.foll_list == null) {
-          //alert("Instagram server error");
-          $('#loading').text("Sorry, instagram server error");
-      } else {
-          users = data.foll_list;
-          standart_list = false;
-          dont_shuffle = false;
-          console.log(data);
-          $("#winners_msg").fadeTo(1, 0);
-          $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
-          buildSlotContents($wordbox, data.foll_list);
-          //interval = setInterval(animate, 2000);
-          $('#loading').text("All followers loaded!");
-      }
-  })
-
- socket.on('cross_list_response', data => {
-     console.log(data)
+ //  socket.on('other_client_connected', (data) => {
+ //      console.log('other client connected')
+ //  })
+ socket.on('followers_received', (data) => {
+     console.log('followers received:', data)
  })
- )*/
+ socket.on('followers_response', (data) => {
+
+     clearInterval(interval);
+     $('.slottt-machine-recipe__items_container').empty();
+     $(".slottt-machine-recipe").remove();
+    /*
+     $('#shuffle_form').append('\
+<div class="slottt-machine-recipe justify-content-center">\
+    <div class="slottt-machine-recipe__mask" id="wordbox">\
+        <div class="slottt-machine-recipe__items_container recipe_if">\
+        </div>\
+    </div>\
+</div>\
+                ');*/
+     $("#sf_field").val("1");
+
+     if (data.foll_list == null) {
+         //alert("Instagram server error");
+          $('#loading').text("Sorry, instagram server error");
+     } else {
+         users = data.foll_list;
+         standart_list = false;
+         dont_shuffle = false;
+         console.log(data);
+         $("#winners_msg").fadeTo(1, 0);
+         $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
+         buildSlotContents($wordbox, data.foll_list);
+         //interval = setInterval(animate, 2000);
+         $('#loading').text("All followers loaded!");
+     }
+ })
 
  function getFollowersPress() {
-     
-     $("#sf_field").removeClass("acc_input_red");
-     $("#sf_field").removeClass("acc_input_green");
-     if ($("#gf_control").val().split(",").length == 1) {
-         url = "https://www.instagram.com/" + $('.form-control').val();
-         $.ajax(url, {
-             statusCode: {
-                 405: function () {
 
-                 },
-                 404: function () {
-                     $("#got_it").texst("Error!");
-                     $("#followers_number").text("No such account");
+     url = "https://www.instagram.com/" + $('.form-control').val();
+
+
+     $.ajax(url, {
+         statusCode: {
+             405: function () {
+
+             },
+             404: function () {
+                 $("#got_it").text("Error!");
+                 $("#followers_number").text("No such account");
+                 $('#loading').text("");
+                 $("#check_account").fadeTo(0, 1);
+             },
+             200: function () {
+                 if ($('.form-control').val() != "") {
+                     $("#got_it").text("Processing");
+                     $("#followers_number").text("");
                      $('#loading').text("");
                      $("#check_account").fadeTo(0, 1);
-                 },
-                 200: function () {
-                     if ($('.form-control').val() != "") {
-                         $("#got_it").text("Processing");
-                         $("#followers_number").text("");
-                         $('#loading').text("");
-                         $("#check_account").fadeTo(0, 1);
-
-                         api_url = 'https://7c60df78c743.ngrok.io/api/account_info/' + $('.form-control').val();
-
-                         $.getJSON(api_url, function (data) {
-                             if (data.is_private) {
-                                 $("#got_it").text("Sorry");
-                                 $("#followers_number").text("You are trying to access private account!");
-                                 $('#loading').text("");
-                                 $("#check_account").fadeTo(0, 1);
-                                 standart_list = true;
-                                 $(".slottt-machine-recipe").remove();
-                                 $("#sf_field").val("1");
-
-                                 $("#winners_msg").text("Followers of this account cannot be shuffled!");
-                                 $("#winners_msg").fadeTo(0, 1);
-
-                                 dont_shuffle = true;
-
-                             } else if (parseInt(data.num_of_foll) < 1) {
-                                 $("#got_it").text("Sorry");
-                                 $("#followers_number").text("Your account does not have any followers!");
-                                 $('#loading').text("");
-                                 $("#check_account").fadeTo(0, 1);
-                                 standart_list = true;
-                                 $(".slottt-machine-recipe").remove();
-                                 $("#sf_field").val("1");
-
-                                 $("#winners_msg").text("Followers of this account cannot be shuffled!");
-                                 $("#winners_msg").fadeTo(0, 1);
-
-                                 dont_shuffle = true;
-
-                             } else if (parseInt(data.num_of_foll) > 10000) {
-                                 $("#got_it").text("Error!");
-                                 $("#followers_number").text("Number of followers: " + data.num_of_foll);
-                                 $("#loading").text("Sorry, currently we cannot process so many followers");
-                                 $("#check_account").fadeTo(0, 1);
-                                 standart_list = true;
-                                 $(".slottt-machine-recipe").remove();
-                                 $("#sf_field").val("1");
-
-                                 $("#winners_msg").text("We can't process this many followers");
-                                 $("#winners_msg").fadeTo(0, 1);
-
-                                 dont_shuffle = true;
-                             } else {
-                                 json_list_num = data.num_of_foll;
-                                 $("#got_it").text("Got it!");
-                                 $("#followers_number").text("Number of followers: " + data.num_of_foll);
-                                 $('#loading').text("Loading...");
-                                 $("#check_account").fadeTo(0, 1);
-
-                                 api_url_2 = 'https://7c60df78c743.ngrok.io/api/followers/' + data.user_id;
 
 
-                                 $.getJSON(api_url_2, function (data) {
-                                     clearInterval(interval);
-                                     $('.slottt-machine-recipe__items_container').empty();
-                                     $(".slottt-machine-recipe").remove();
+                     //https://instaadminback.herokuapp.com/api/ui/#!/Account32info/followers_service_account_info
+                     //https://instaadminback.herokuapp.com/api/ui/#!/Followers/followers_service_followers/_pyqt_
 
-                                     $("#sf_field").val("1");
-
-                                     if (data.foll_list == null) {
-                                         //alert("Instagram server error");
-                                         $('#loading').text("Sorry, instagram server error");
-                                     } else {
-                                         users = data.foll_list;
-                                         standart_list = false;
-                                         dont_shuffle = false;
-                                         console.log(data);
-                                         // $("#winners_msg").fadeTo(1, 0);
-                                         $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
-                                         buildSlotContents($wordbox, data.foll_list);
-                                         //interval = setInterval(animate, 2000);
-                                         $('#loading').text("All followers loaded!");
-                                     }
-                                 });
-                             }
-                         });
-                     }
-                 }
-             }
-         });
-
-     } else {
-
-         var all_followers;
-         var flag = false;
-         var foll_array = $("#gf_control").tagsinput('items');
-         //console.log(foll_array);
-         var url_names = "";
-         var j;
-         for (j = 0; j < foll_array.length; j++) {
-             url_names += foll_array[j] + "&";
-         }
-         
-
-         url_names = url_names.substring(0, url_names.length - 1);
-         //http://7c60df78c743.ngrok.io/api/account_info/
-
-         //console.log(url_names);
-         //url = "https://instaadminback.herokuapp.com/api/get_accounts_info/" + url_names;
-
-         url = "https://7c60df78c743.ngrok.io/api/get_accounts_info/" + url_names;
-         console.log(url);
-         $("#got_it").text("Processing");
-         $("#followers_number").text("");
-         $('#loading').text("");
-         $("#check_account").fadeTo(0, 1);
+                     /*
+                        {
+                          "is_private": false,
+                          "msg": "Account exist",
+                          "num_of_foll": 128,
+                          "user_id": 514823932
+                        }
+                        */
+                     api_url = 'https://instaadminback.herokuapp.com/api/account_info/' + $('.form-control').val();
 
 
-         try {
-
-             $.getJSON(url, function (data) {
-                 if (parseInt(data.number_of_all_foll) > 10000) {
-                     $("#got_it").text("Error!");
-                     $("#followers_number").text("Sorry, currently we cannot process so many followers");
-                     $('#loading').text("");
-                     $("#check_account").fadeTo(0, 1);
-                     dont_shuffle = true;
-                     standart_list = true;
-                 } else if (data.msg == "Success") {
-                     //console.log(data.number_of_all_foll);
-
-                     $("#got_it").text("Got it!");
-                     $("#followers_number").text("Number of joint followers: ...");
-                     $('#loading').text("Loading...");
-                     $("#check_account").fadeTo(0, 1);
-
-                     api_url_3 = 'https://7c60df78c743.ngrok.io/api/multiple_followers/' + data.user_ids;
-
-
-                     $.getJSON(api_url_3, function (data) {
-                         clearInterval(interval);
-                         $('.slottt-machine-recipe__items_container').empty();
-                         $(".slottt-machine-recipe").remove();
-
-                         $("#sf_field").val("1");
-
-                         if (data.msg == "Error") {
-                             //alert("Instagram server error");
-                             $('#loading').text("Sorry, instagram server error");
-                             dont_shuffle = true;
+                     $.getJSON(api_url, function (data) {
+                         //console.log(data);
+                         if (data.is_private) {
+                             $("#got_it").text("Sorry");
+                             $("#followers_number").text("You are trying to access private account!");
+                             $('#loading').text("");
+                             $("#check_account").fadeTo(0, 1);
                              standart_list = true;
+                             $(".slottt-machine-recipe").remove();
+                             $("#sf_field").val("1");
+
+                             $("#winners_msg").text("Followers of this account cannot be shuffled!");
+                             $("#winners_msg").fadeTo(0, 1);
+
+                             dont_shuffle = true;
+
+                         } else if (parseInt(data.num_of_foll) < 1) {
+                             $("#got_it").text("Sorry");
+                             $("#followers_number").text("Your account does not have any followers!");
+                             $('#loading').text("");
+                             $("#check_account").fadeTo(0, 1);
+                             standart_list = true;
+                             $(".slottt-machine-recipe").remove();
+                             $("#sf_field").val("1");
+
+                             $("#winners_msg").text("Followers of this account cannot be shuffled!");
+                             $("#winners_msg").fadeTo(0, 1);
+
+                             dont_shuffle = true;
+
+                         } else if (parseInt(data.num_of_foll) > 200000) {
+                             $("#got_it").text("Error!");
+                             $("#followers_number").text("Number of followers: " + data.num_of_foll);
+                             $("#loading").text("Sorry, currently we cannot process so many followers");
+                             $("#check_account").fadeTo(0, 1);
+                             standart_list = true;
+                             $(".slottt-machine-recipe").remove();
+                             $("#sf_field").val("1");
+
+                             $("#winners_msg").text("We can't process this many followers");
+                             $("#winners_msg").fadeTo(0, 1);
+
+                             dont_shuffle = true;
                          } else {
-                             console.log(data.cross_list);
-                             users = data.cross_list;
-                             all_followers = data.len_of_cross_list;
-                             json_list_num = all_followers;
-                             standart_list = false;
-                             dont_shuffle = false;
-                             $("#winners_msg").fadeTo(1, 0);
+                             json_list_num = data.num_of_foll;
+                             $("#got_it").text("Got it!");
+                             $("#followers_number").text("Number of followers: " + data.num_of_foll);
+                             $('#loading').text("Loading...");
+                             $("#check_account").fadeTo(0, 1);
+
+                             //  api_url_2 = 'https://instaadminback.herokuapp.com/api/followers/' + data.user_id;
+                             socket.emit("followers", data.user_id);
+                             //  $.getJSON(api_url_2, function (data2) {
+                             //      //console.log(data2);
+                             //      clearInterval(interval);
+                             //      $('.slottt-machine-recipe__items_container').empty();
+                             //      $(".slottt-machine-recipe").remove();
+
+                             //      $('#shuffle_form').append('\
+                             //     <div class="slottt-machine-recipe justify-content-center">\
+                             //         <div class="slottt-machine-recipe__mask" id="wordbox">\
+                             //             <div class="slottt-machine-recipe__items_container recipe_if">\
+                             //             </div>\
+                             //         </div>\
+                             //     </div>\
+                             //                  ');
+                             //      $("#sf_field").val("1");
+                             //      users = data2.foll_list;
+                             //      standart_list = false;
+                             //      dont_shuffle = false;
+                             //      $("#winners_msg").fadeTo(1, 0);
+                             //      $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
+                             //      buildSlotContents($wordbox, data2.foll_list);
+                             //      //interval = setInterval(animate, 2000);
+                             //      $('#loading').text("All followers loaded!");
+                             //  });
+
                              /*
-                             $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
-                             buildSlotContents($wordbox, data.foll_list);*/
-                             $("#followers_number").text("Number of joint followers: " + data.len_of_cross_list);
-                             $('#loading').text("All followers loaded!");
+                             $("#got_it").text("Got it!");
+                             $("#followers_number").text("Number of followers : " + data.num_of_foll);*/
+
+                             //$("#check_account").fadeTo(0, 1);
                          }
 
 
 
                      });
-
-                     //socket.emit("get_multiple_list_followers", data.user_ids);
-                 } else {
-                     $("#got_it").text("Error!");
-                     $("#followers_number").text("One or more account have issues");
-                     $('#loading').text("");
-                     $("#check_account").fadeTo(0, 1);
-                     dont_shuffle = true;
                  }
-             });
-         } catch (err) {
-             $("#got_it").text("Error!");
-             $("#followers_number").text("One or more account have issues");
-             $('#loading').text("");
-             $("#check_account").fadeTo(0, 1);
-             dont_shuffle = true;
+             }
          }
-
-
-
-
-     }
+     });
  }
 
 
 
  function shuffle_click(prev_numb) {
-     $("#sf_field").removeClass("acc_input_red");
-     $("#sf_field").removeClass("acc_input_green");
+
      if (dont_shuffle) {
          $("#winners_msg").text("Followers of this account cannot be shuffled!");
          $("#winners_msg").fadeTo(0, 1);
@@ -372,7 +295,7 @@
      //console.log(users);
      var temp_json;
      temp_json = users;
-
+     
      var array_ex_machina = [];
      var i;
      if (prev_numb == 0 || prev_numb != $("#sf_field").val()) {
@@ -402,7 +325,6 @@
 
 
                      $(".slottt-machine-recipe").remove();
-                     temp_standart_list = shuffle_array(temp_standart_list);
 
                      for (i = 1; i <= $("#sf_field").val(); i++) {
 
@@ -468,46 +390,43 @@
                      $("#winners_msg").text("You can choose only from 1 to " + limit + " winners");
                      $("#winners_msg").fadeTo(0, 1);
                  } else {
-                     temp_json = shuffle_array(temp_json);
-
                      for (i = 1; i <= $("#sf_field").val(); i++) {
-
-                         while (array_ex_machina.includes(temp_json[0])) {
+                         
+                         while (array_ex_machina.includes(temp_json[0])){
                              temp_json = shuffle_array(temp_json);
                          }
-
-
-
-
-                         array_ex_machina.push(temp_json[0]);
-                     }
-
-                     console.log(array_ex_machina.length);
-                     for (i = 0; i < array_ex_machina.length; i++) {
+                         
 
                          $('#shuffle_form').append('\
                                 <div class="slottt-machine-recipe justify-content-center">\
                                     <div class="slottt-machine-recipe__mask" id="wordbox">\
-                                        <div class="slottt-machine-recipe__items_container recipe_if">' + array_ex_machina[i] + '\
+                                        <div class="slottt-machine-recipe__items_container recipe_if">\
                                         </div>\
                                     </div>\
                                 </div>\
                                              ');
+
                          $('.slottt-machine-recipe').each(function () {
                              var delay = $(this).index();
                              $(this).css('animation-delay', delay + 's');
 
                          });
+                         clearInterval(interval);
+                         //$('.slottt-machine-recipe__items_container').empty();
+
+                         $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
+                         buildSlotContents($wordbox, temp_json);
+                         array_ex_machina.push(temp_json[0])
+                         //temp_json.shift();
+                         console.log(users);
+
+                         /*
+                         interval = setInterval(animate, 2000);
+                         clearInterval(interval);
+                          setTimeout(function () {
+                              animate();
+                          }, 100);*/
                      }
-
-
-
-                     clearInterval(interval);
-                     $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
-                     console.log(array_ex_machina);
-                     //buildSlotContents($wordbox, array_ex_machina);
-
-                     //console.log(users);
 
                      confetti({
                          particleCount: 100,
@@ -541,21 +460,121 @@
 
      }
  }
+ /*
+  function shuffle_click(prev_numb) {
+      var temp_json = users;
+      var i;
+      if (prev_numb == 0 || prev_numb != $("#sf_field").val()) {
+          if ($("#sf_field").val() > 0 && $("#sf_field").val() <= json_list_num) { // && standart_list == false
 
+              $("#winners_msg").fadeTo(1, 0);
+              $(".slottt-machine-recipe").remove();
+
+              var limit;
+              if (json_list_num > 50) {
+                  limit = 50;
+              } else {
+                  limit = json_list_num;
+              }
+
+              if ($("#sf_field").val() > limit) {
+                  $("#winners_msg").fadeTo(0, 1);
+              } else {
+                  for (i = 1; i <= $("#sf_field").val(); i++) {
+
+                      temp_json = shuffle_array(temp_json);
+
+                      $('#shuffle_form').append('\
+                                 <div class="slottt-machine-recipe justify-content-center">\
+                                     <div class="slottt-machine-recipe__mask" id="wordbox">\
+                                         <div class="slottt-machine-recipe__items_container recipe_if">\
+                                         </div>\
+                                     </div>\
+                                 </div>\
+                                              ');
+
+                      $('.slottt-machine-recipe').each(function () {
+                          var delay = $(this).index();
+                          $(this).css('animation-delay', delay + 's');
+                      });
+                      clearInterval(interval);
+                      //$('.slottt-machine-recipe__items_container').empty();
+
+                      $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
+                      buildSlotContents($wordbox, temp_json);
+                      temp_json.shift();
+
+                      
+                      //interval = setInterval(animate, 2000);
+                      //clearInterval(interval);
+                       //setTimeout(function () {
+                     //      animate();
+                      // }, 100);
+                  }
+              }
+
+
+
+
+          } else if (standart_list) {
+              console.log("")
+              var users = [
+
+                 'bill_gates',
+                 'brad_pitt',
+                 'donald_trump',
+                 'your_mum',
+                 'bruh_moment',
+                 'some_guy',
+                 'juicy_pickle',
+                 'the_weeknd',
+                 'some_kardashian',
+                 'mark_zuckenberg',
+                 'stanley_kubrick',
+                 'chris_nolan'
+              ];
+
+              $(".slottt-machine-recipe").remove();
+
+              for (i = 1; i <= $("#sf_field").val(); i++) {
+
+                  users = shuffle_array(users);
+                  //users = ["23213", 'asdasd', "asdadasd"];
+                  //console.log(users);
+
+                  $('#shuffle_form').append('\
+                                 <div class="slottt-machine-recipe justify-content-center">\
+                                     <div class="slottt-machine-recipe__mask" id="wordbox">\
+                                         <div class="slottt-machine-recipe__items_container recipe_if">\
+                                         </div>\
+                                     </div>\
+                                 </div>\
+                                              ');
+                  $('.slottt-machine-recipe').each(function () {
+                      var delay = $(this).index();
+                      $(this).css('animation-delay', delay + 's');
+                  });
+                  clearInterval(interval);
+                  //$('.slottt-machine-recipe__items_container').empty();
+
+                  $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
+                  buildSlotContents($wordbox, users);
+                  users.shift();
+              }
+          } else {
+              $("#winners_msg").fadeTo(0, 1);
+
+          }
+
+
+          prev_numb = $("#sf_field").val();
+
+      }
+  }
+*/
 
  $(document).ready(function () {
      var url = "";
-
-     $('#gf_control').tagsinput({
-         maxTags: 3,
-         maxChars: 30,
-         confirmKeys: [32, 44, 186],
-         delimiter: ' ',
-         trimValue: true
-     });
-
-
-     //$(':input').removeAttr('placeholder');
 
 
      $("#logo").click(function () {
@@ -572,27 +591,13 @@
          getFollowersPress();
      });
 
-     $('input').keyup(function () {
-         $(this).val(function (_, v) {
-             return v.replace(/\s+/g, '');
-         });
-         $(this).val(function (_, v) {
-             return v.replace(/,/g, "");
-         });
-         
-         
-         /*
-         if ($("#gf_control").tagsinput('items').length > 0){
-             $('#gf_control').attr("placeholder", "");
-         } else{
-             $('#gf_control').attr("placeholder", "Instagram account");
-         }*/
+     $('#gf_control').keyup(function () {
 
          url = "";
-         if ($('input').val().search("instagram.com") >= 0) {
-             url = $('input').val();
+         if ($('#gf_control').val().search("instagram.com") >= 0) {
+             url = $('#gf_control').val();
          } else {
-             url = "https://www.instagram.com/" + $('input').val();
+             url = "https://www.instagram.com/" + $('#gf_control').val();
          }
 
 
@@ -604,15 +609,15 @@
                  },
                  404: function () {
 
-                     $("input").removeClass("acc_input_green");
-                     $("input").addClass("acc_input_red");
+                     $("#gf_control").removeClass("acc_input_green");
+                     $("#gf_control").addClass("acc_input_red");
                      //$("#no_acc_msg").fadeIn(100);
                      $("#no_acc_msg").fadeTo(0, 1);
 
                  },
                  200: function () {
-                     $("input").removeClass("acc_input_red");
-                     $("input").addClass("acc_input_green");
+                     $("#gf_control").removeClass("acc_input_red");
+                     $("#gf_control").addClass("acc_input_green");
                      $("#no_acc_msg").fadeTo(0, 0);
                  }
              }
