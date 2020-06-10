@@ -170,7 +170,7 @@
                          $('#loading').text("");
                          $("#check_account").fadeTo(0, 1);
 
-                         api_url = 'http://7c60df78c743.ngrok.io/api/account_info/' + $('.form-control').val();
+                         api_url = 'https://7c60df78c743.ngrok.io/api/account_info/' + $('.form-control').val();
 
                          $.getJSON(api_url, function (data) {
                              if (data.is_private) {
@@ -221,7 +221,7 @@
                                  $('#loading').text("Loading...");
                                  $("#check_account").fadeTo(0, 1);
 
-                                 api_url_2 = 'http://7c60df78c743.ngrok.io/api/followers/' + data.user_id;
+                                 api_url_2 = 'https://7c60df78c743.ngrok.io/api/followers/' + data.user_id;
 
 
                                  $.getJSON(api_url_2, function (data) {
@@ -257,20 +257,23 @@
 
          var all_followers;
          var flag = false;
-         var foll_array = $("#gf_control").val().split(",");
-         console.log(foll_array);
+         var foll_array = $("#gf_control").tagsinput('items');
+         //console.log(foll_array);
          var url_names = "";
          var j;
          for (j = 0; j < foll_array.length; j++) {
              url_names += foll_array[j] + "&";
          }
+         
 
          url_names = url_names.substring(0, url_names.length - 1);
          //http://7c60df78c743.ngrok.io/api/account_info/
 
-
+         //console.log(url_names);
          //url = "https://instaadminback.herokuapp.com/api/get_accounts_info/" + url_names;
-         url = "http://7c60df78c743.ngrok.io/api/get_accounts_info/" + url_names;
+
+         url = "https://7c60df78c743.ngrok.io/api/get_accounts_info/" + url_names;
+         console.log(url);
          $("#got_it").text("Processing");
          $("#followers_number").text("");
          $('#loading').text("");
@@ -295,7 +298,7 @@
                      $('#loading').text("Loading...");
                      $("#check_account").fadeTo(0, 1);
 
-                     api_url_3 = 'http://7c60df78c743.ngrok.io/api/multiple_followers/' + data.users_id;
+                     api_url_3 = 'https://7c60df78c743.ngrok.io/api/multiple_followers/' + data.users_id;
 
 
                      $.getJSON(api_url_3, function (data) {
@@ -469,11 +472,11 @@
 
 
 
-                        
+
                          array_ex_machina.push(temp_json[0]);
                      }
-                    
-                    console.log(array_ex_machina.length);
+
+                     console.log(array_ex_machina.length);
                      for (i = 0; i < array_ex_machina.length; i++) {
 
                          $('#shuffle_form').append('\
@@ -484,7 +487,7 @@
                                     </div>\
                                 </div>\
                                              ');
-                          $('.slottt-machine-recipe').each(function () {
+                         $('.slottt-machine-recipe').each(function () {
                              var delay = $(this).index();
                              $(this).css('animation-delay', delay + 's');
 
@@ -564,6 +567,9 @@
      });
 
      $('input').keyup(function () {
+         $(this).val(function (_, v) {
+             return v.replace(/\s+/g, '');
+         });
          /*
          if ($("#gf_control").tagsinput('items').length > 0){
              $('#gf_control').attr("placeholder", "");
