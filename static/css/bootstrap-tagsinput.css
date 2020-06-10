@@ -18,8 +18,13 @@
   line-height: 22px;
   cursor: text;*/
 }
+.bootstrap-tagsinput {
+  white-space: nowrap;
+  overflow: hidden;
+}
 
 .bootstrap-tagsinput input {
+    
     border: none;
     box-shadow: none;
     outline: none;
