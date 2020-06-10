@@ -26,7 +26,7 @@
 
 .slottt-machine-recipe__items_container {
     position: absolute;
-    left: 53%;
+    left: 48%;
     -webkit-transform: translateX(-40%);
     transform: translateX(-40%);
 }
