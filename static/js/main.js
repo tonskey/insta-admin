@@ -150,6 +150,9 @@
  )*/
 
  function getFollowersPress() {
+     
+     $("#sf_field").removeClass("acc_input_red");
+     $("#sf_field").removeClass("acc_input_green");
      if ($("#gf_control").val().split(",").length == 1) {
          url = "https://www.instagram.com/" + $('.form-control').val();
          $.ajax(url, {
@@ -294,7 +297,7 @@
                      //console.log(data.number_of_all_foll);
 
                      $("#got_it").text("Got it!");
-                     $("#followers_number").text("Total followers loaded: " + data.number_of_all_foll);
+                     $("#followers_number").text("Number of joint followers: ...");
                      $('#loading').text("Loading...");
                      $("#check_account").fadeTo(0, 1);
 
@@ -324,6 +327,7 @@
                              /*
                              $wordbox = $('#wordbox .slottt-machine-recipe__items_container');
                              buildSlotContents($wordbox, data.foll_list);*/
+                             $("#followers_number").text("Number of joint followers: " + data.len_of_cross_list);
                              $('#loading').text("All followers loaded!");
                          }
 
@@ -357,7 +361,8 @@
 
 
  function shuffle_click(prev_numb) {
-
+     $("#sf_field").removeClass("acc_input_red");
+     $("#sf_field").removeClass("acc_input_green");
      if (dont_shuffle) {
          $("#winners_msg").text("Followers of this account cannot be shuffled!");
          $("#winners_msg").fadeTo(0, 1);
@@ -571,6 +576,11 @@
          $(this).val(function (_, v) {
              return v.replace(/\s+/g, '');
          });
+         $(this).val(function (_, v) {
+             return v.replace(/,/g, "");
+         });
+         
+         
          /*
          if ($("#gf_control").tagsinput('items').length > 0){
              $('#gf_control').attr("placeholder", "");
