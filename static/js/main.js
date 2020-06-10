@@ -132,7 +132,7 @@
                          $('#loading').text("");
                          $("#check_account").fadeTo(0, 1);
 
-                         api_url = 'https://33cc12f46842.ngrok.io/api/account_info/' + $('.form-control').val();
+                         api_url = 'https://4d3f9614c537.ngrok.io/api/account_info/' + $('.form-control').val();
 
                          $.getJSON(api_url, function (data) {
                              if (data.is_private) {
@@ -183,7 +183,7 @@
                                  $('#loading').text("Loading...");
                                  $("#check_account").fadeTo(0, 1);
 
-                                 api_url_2 = 'https://33cc12f46842.ngrok.io/api/followers/' + data.user_id;
+                                 api_url_2 = 'https://4d3f9614c537.ngrok.io/api/followers/' + data.user_id;
 
 
                                  $.getJSON(api_url_2, function (data) {
@@ -230,7 +230,7 @@
 
          //url = "https://instaadminback.herokuapp.com/api/get_accounts_info/" + url_names;
 
-         url = "https://33cc12f46842.ngrok.io/api/get_accounts_info/" + url_names;
+         url = "https://4d3f9614c537.ngrok.io/api/get_accounts_info/" + url_names;
          $("#got_it").text("Processing");
          $("#followers_number").text("");
          $('#loading').text("");
@@ -253,7 +253,7 @@
                      $('#loading').text("Loading...");
                      $("#check_account").fadeTo(0, 1);
 
-                     api_url_3 = 'https://33cc12f46842.ngrok.io/api/multiple_followers/' + data.user_ids;
+                     api_url_3 = 'https://4d3f9614c537.ngrok.io/api/multiple_followers/' + data.user_ids;
 
 
                      $.getJSON(api_url_3, function (data) {
